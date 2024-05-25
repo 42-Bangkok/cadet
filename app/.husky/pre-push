@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "Running Husky pre-commits..."
+chmod +x app/.husky/check-lint.sh && sh app/.husky/check-lint.sh
+echo "Building app..."
+cd app && npm run build
+echo "done!"
+echo "Husky pre-commits done"
