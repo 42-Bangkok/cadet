@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { pgTable, text, primaryKey } from "drizzle-orm/pg-core";
+import { pgTable, text, primaryKey, serial } from "drizzle-orm/pg-core";
 import { users } from "./authjs";
 
 /**
@@ -43,15 +43,15 @@ export const usersToRolesRelations = relations(usersToRoles, ({ one }) => ({
   }),
 }));
 
-// /**
-//  * Stores pre-assign roles for non-existing users.
-//  * If the user does not exist yet the role is stored here.
-//  * When the user is created, the role is assigned to the user.
-//  */
-// export const roleAssignQueues = pgTable("roleAssignQueues", {
-//   id: serial("id").primaryKey(),
-//   email: text("email").notNull(),
-//   roleId: text("roleId")
-//     .references(() => roles.name, { onDelete: "cascade" })
-//     .notNull(),
-// });
+/**
+ * Stores pre-assign roles for non-existing users.
+ * If the user does not exist yet the role is stored here.
+ * When the user is created, the role is assigned to the user.
+ */
+export const roleAssignQueues = pgTable("roleAssignQueues", {
+  id: serial("id").primaryKey(),
+  email: text("email").notNull(),
+  roleId: text("roleId")
+    .references(() => roles.name, { onDelete: "cascade" })
+    .notNull(),
+});
