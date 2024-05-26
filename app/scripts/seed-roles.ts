@@ -33,10 +33,13 @@ async function seedStaffs() {
     console.log("User not found.");
     return;
   }
-  await db.insert(usersToRoles).values({
-    userId: user.id,
-    roleId: 1,
-  });
+  await db
+    .insert(usersToRoles)
+    .values({
+      userId: user.id,
+      roleId: 1,
+    })
+    .onConflictDoNothing();
   console.log("Staffs seeded.");
 }
 

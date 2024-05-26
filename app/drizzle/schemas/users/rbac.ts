@@ -1,7 +1,5 @@
-import { autoTimestamp } from "@/drizzle/schemas/commons";
 import { relations } from "drizzle-orm";
 import {
-  timestamp,
   pgTable,
   text,
   primaryKey,
@@ -23,11 +21,17 @@ export const rolesRelations = relations(roles, ({ many }) => ({
   users: many(users),
 }));
 
-export const usersToRoles = pgTable("userToRoles", {
-  userId: text("userId")
-    .notNull()
-    .references(() => users.id),
-  roleId: integer("roleId")
-    .notNull()
-    .references(() => roles.id),
-});
+export const usersToRoles = pgTable(
+  "userToRoles",
+  {
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id),
+    roleId: integer("roleId")
+      .notNull()
+      .references(() => roles.id),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.userId, t.roleId] }),
+  })
+);
