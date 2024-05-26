@@ -9,7 +9,7 @@ import {
 import { users } from "./authjs";
 
 /**
- * Role for RBAC
+ * Roles for RBAC
  */
 export const roles = pgTable("roles", {
   id: serial("id").primaryKey(),
