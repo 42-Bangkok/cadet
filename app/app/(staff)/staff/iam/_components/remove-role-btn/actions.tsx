@@ -20,7 +20,8 @@ export async function removeRole({
     {
       throw new Error("Unauthorized");
     }
-  } else if (
+  }
+  if (
     !hasAnyRole({ email: session!.user!.email as string, roles: ["staff"] })
   ) {
     throw new Error("Forbidden");

@@ -39,12 +39,14 @@ export default async function Page() {
   const roles = await queryUserRoles();
   roles.sort((a, b) => a.role.name.localeCompare(b.role.name));
   return (
-    <div>
-      <h1 className="font-bold">Super bare-bone IAM (tm)</h1>
-      <p>
-        Add or remove roles, if the user does not exist it will be added when
-        logged in. A user can have multiple roles.
-      </p>
+    <div className="flex flex-col gap-4">
+      <div>
+        <h1 className="font-bold">Super duper bare-bone RBAC (tm)</h1>
+        <p>
+          Add or remove roles, if the user does not exist it will be added when
+          logged in. <br /> A user can have multiple roles.
+        </p>
+      </div>
       <AddRoleForm />
       <Table>
         <TableHeader>

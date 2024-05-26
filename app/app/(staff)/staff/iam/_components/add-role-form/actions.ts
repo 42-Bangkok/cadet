@@ -1,7 +1,9 @@
 "use server";
 
+import { auth } from "@/auth";
 import { roleAssignQueues, users, usersToRoles } from "@/drizzle/schemas";
 import { db } from "@/lib/db/clients";
+import { hasAnyRole } from "@/lib/rbac/core";
 import { SAResponse } from "@/types/sa-response";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
@@ -13,6 +15,15 @@ export async function addRole({
   email: string;
   roleId: string;
 }): Promise<SAResponse<string>> {
+  const session = await auth();
+  if (!session) {
+    throw new Error("Unauthorized");
+  }
+  if (
+    !hasAnyRole({ email: session!.user!.email as string, roles: ["staff"] })
+  ) {
+    throw new Error("Forbidden");
+  }
   const user = await db.query.users.findFirst({
     where: eq(users.email, email),
   });
