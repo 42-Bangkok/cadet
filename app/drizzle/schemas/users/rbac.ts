@@ -8,6 +8,8 @@
  *
  * drizzle doesn't like tables without id
  * references must be of the same type
+ *
+ * just port Django orm to TS already!
  */
 
 import { relations } from "drizzle-orm";
