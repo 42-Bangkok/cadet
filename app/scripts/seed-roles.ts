@@ -20,6 +20,7 @@ async function seedRoles() {
   await db.insert(roles).values(ROLES).onConflictDoNothing();
   console.log("Roles seeded.");
 }
+
 /**
  * Seeds the db with initial staffs.
  */
