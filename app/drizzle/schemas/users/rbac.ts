@@ -1,7 +1,13 @@
 /**
  * Notes on m-m relations:
  * To allow query builder "with" to work these are required
+ * usersRelations so we can query users with roles
+ * rolesRelations so we can query roles with users
+ * usersToRoles to store the m-m relation
+ * usersToRolesRelations to allow subqueries
  *
+ * drizzle doesn't like tables without id
+ * references must be of the same type
  */
 
 import { relations } from "drizzle-orm";
