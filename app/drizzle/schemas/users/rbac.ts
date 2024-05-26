@@ -35,3 +35,16 @@ export const usersToRoles = pgTable(
     pk: primaryKey({ columns: [t.userId, t.roleId] }),
   })
 );
+
+/**
+ * Stores pre-assign roles for non-existing users.
+ * If the user does not exist yet the role is stored here.
+ * When the user is created, the role is assigned to the user.
+ */
+export const roleAssignQueues = pgTable("roleAssignQueues", {
+  id: serial("id").primaryKey(),
+  email: text("email").notNull(),
+  roleId: integer("roleId")
+    .references(() => roles.id, { onDelete: "cascade" })
+    .notNull(),
+});
