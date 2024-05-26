@@ -21,3 +21,6 @@ test-build:
 	docker rmi staffportal:latest
 api-schema:
 	cd app && npx -y openapi-typescript ${GATEWAY_URL}/api/openapi.json -o schemas/gateway-api-schema.d.ts 
+seed: seed-roles
+seed-roles:
+	cd app/scripts && npx -y tsx seed-roles.ts 
