@@ -1,3 +1,9 @@
+/**
+ * Notes on m-m relations:
+ * To allow query builder "with" to work these are required
+ *
+ */
+
 import { relations } from "drizzle-orm";
 import { pgTable, text, primaryKey, serial } from "drizzle-orm/pg-core";
 import { users } from "./authjs";
@@ -14,7 +20,7 @@ export const roles = pgTable("roles", {
 });
 
 export const rolesRelations = relations(roles, ({ many }) => ({
-  users: many(usersToRoles),
+  usersToRoles: many(usersToRoles),
 }));
 
 export const usersToRoles = pgTable(
