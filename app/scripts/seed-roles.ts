@@ -4,12 +4,10 @@ import { eq } from "drizzle-orm";
 
 const ROLES = [
   {
-    id: 1,
     name: "staff",
     description: "42 Bangkok staff",
   },
   {
-    id: 2,
     name: "tutor",
     description: "Tutor member",
   },
@@ -33,11 +31,14 @@ async function seedStaffs() {
     console.log("User not found.");
     return;
   }
+  const staffRole = await db.query.roles.findFirst({
+    where: eq(roles.name, "staff"),
+  });
   await db
     .insert(usersToRoles)
     .values({
       userId: user.id,
-      roleId: 1,
+      roleId: staffRole!.id,
     })
     .onConflictDoNothing();
   console.log("Staffs seeded.");

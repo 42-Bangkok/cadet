@@ -12,22 +12,24 @@ import { users } from "./authjs";
  * Roles for RBAC
  */
 export const roles = pgTable("roles", {
-  id: serial("id").primaryKey(),
-  name: text("name").unique().notNull(),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  name: text("name").unique(),
   description: text("description").default("").notNull(),
 });
 
 export const rolesRelations = relations(roles, ({ many }) => ({
-  users: many(users),
+  users: many(usersToRoles),
 }));
 
 export const usersToRoles = pgTable(
-  "userToRoles",
+  "usersToRoles",
   {
     userId: text("userId")
       .notNull()
       .references(() => users.id),
-    roleId: integer("roleId")
+    roleId: text("roleId")
       .notNull()
       .references(() => roles.id),
   },
@@ -36,15 +38,26 @@ export const usersToRoles = pgTable(
   })
 );
 
-/**
- * Stores pre-assign roles for non-existing users.
- * If the user does not exist yet the role is stored here.
- * When the user is created, the role is assigned to the user.
- */
-export const roleAssignQueues = pgTable("roleAssignQueues", {
-  id: serial("id").primaryKey(),
-  email: text("email").notNull(),
-  roleId: integer("roleId")
-    .references(() => roles.id, { onDelete: "cascade" })
-    .notNull(),
-});
+export const usersToRolesRelations = relations(usersToRoles, ({ one }) => ({
+  user: one(users, {
+    fields: [usersToRoles.userId],
+    references: [users.id],
+  }),
+  role: one(roles, {
+    fields: [usersToRoles.roleId],
+    references: [roles.id],
+  }),
+}));
+
+// /**
+//  * Stores pre-assign roles for non-existing users.
+//  * If the user does not exist yet the role is stored here.
+//  * When the user is created, the role is assigned to the user.
+//  */
+// export const roleAssignQueues = pgTable("roleAssignQueues", {
+//   id: serial("id").primaryKey(),
+//   email: text("email").notNull(),
+//   roleId: text("roleId")
+//     .references(() => roles.name, { onDelete: "cascade" })
+//     .notNull(),
+// });

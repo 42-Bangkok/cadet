@@ -8,7 +8,7 @@ import {
   integer,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "next-auth/adapters";
-import { roles } from "./rbac";
+import { usersToRoles } from "./rbac";
 
 export const users = pgTable("user", {
   // fields from next-auth
@@ -25,7 +25,7 @@ export const users = pgTable("user", {
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
-  roles: many(roles),
+  usersToRoles: many(usersToRoles),
 }));
 
 export const accounts = pgTable(
