@@ -1,11 +1,5 @@
 import { relations } from "drizzle-orm";
-import {
-  pgTable,
-  text,
-  primaryKey,
-  integer,
-  serial,
-} from "drizzle-orm/pg-core";
+import { pgTable, text, primaryKey } from "drizzle-orm/pg-core";
 import { users } from "./authjs";
 
 /**
