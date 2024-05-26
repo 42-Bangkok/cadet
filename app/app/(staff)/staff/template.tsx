@@ -1,7 +1,5 @@
 import { auth } from "@/auth";
-import { users } from "@/drizzle/schemas";
-import { db } from "@/lib/db/clients";
-import { eq } from "drizzle-orm";
+import { hasAnyRole } from "@/lib/rbac/core";
 
 export default async function Template({
   children,
@@ -10,16 +8,11 @@ export default async function Template({
 }) {
   const session = await auth();
   if (!session) return <div>Unauthorized</div>;
-  const user = await db.query.users.findFirst({
-    where: eq(users.email, session!.user!.email as string),
-    with: {
-      usersToRoles: {
-        columns: {},
-        with: {
-          role: true,
-        },
-      },
-    },
+  const isStaff = await hasAnyRole({
+    email: session.user!.email as string,
+    roles: ["staff"],
   });
+  if (!isStaff) return <div>Forbidden</div>;
+
   return <>{children}</>;
 }
