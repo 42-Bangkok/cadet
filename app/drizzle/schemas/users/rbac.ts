@@ -23,7 +23,7 @@ export const roles = pgTable("roles", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
-  name: text("name").unique(),
+  name: text("name").unique().notNull(),
   description: text("description").default("").notNull(),
 });
 
