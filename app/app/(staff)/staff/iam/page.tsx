@@ -1,16 +1,14 @@
-import { db } from "@/lib/db/clients";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { RemoveRoleBtn } from "./_components/remove-role-btn";
+import { db } from "@/lib/db/clients";
 import { AddRoleForm } from "./_components/add-role-form";
+import { RemoveRoleBtn } from "./_components/remove-role-btn";
 
 async function queryUserRoles() {
   const roles = await db.query.usersToRoles.findMany({
