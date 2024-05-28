@@ -23,7 +23,7 @@ export const roles = pgTable("roles", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
-  name: text("name").unique(),
+  name: text("name").unique().notNull(),
   description: text("description").default("").notNull(),
 });
 
@@ -62,10 +62,15 @@ export const usersToRolesRelations = relations(usersToRoles, ({ one }) => ({
  * If the user does not exist yet the role is stored here.
  * When the user is created, the role is assigned to the user.
  */
-export const roleAssignQueues = pgTable("roleAssignQueues", {
-  id: serial("id").primaryKey(),
-  email: text("email").notNull(),
-  roleId: text("roleId")
-    .references(() => roles.name, { onDelete: "cascade" })
-    .notNull(),
-});
+export const roleAssignQueues = pgTable(
+  "roleAssignQueues",
+  {
+    email: text("email").notNull(),
+    roleId: text("roleId")
+      .references(() => roles.id, { onDelete: "cascade" })
+      .notNull(),
+  },
+  (t) => ({
+    unique: primaryKey({ columns: [t.email, t.roleId] }),
+  })
+);

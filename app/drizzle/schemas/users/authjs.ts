@@ -26,6 +26,7 @@ export const users = pgTable("user", {
 
 export const usersRelations = relations(users, ({ many }) => ({
   usersToRoles: many(usersToRoles),
+  accounts: many(accounts),
 }));
 
 export const accounts = pgTable(
@@ -51,6 +52,13 @@ export const accounts = pgTable(
     }),
   })
 );
+
+export const accountsRelations = relations(accounts, ({ one }) => ({
+  user: one(users, {
+    fields: [accounts.userId],
+    references: [users.id],
+  }),
+}));
 
 export const sessions = pgTable("session", {
   sessionToken: text("sessionToken").primaryKey(),
