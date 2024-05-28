@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={cn(inter.className, "h-dvh")}>
         <NavBar className="mb-4" />
         <div className="pl-4 pr-4">{children}</div>
-        <Toaster position="top-center" />
+        <Toaster />
       </body>
     </html>
   );
