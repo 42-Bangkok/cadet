@@ -46,6 +46,10 @@ export const RoleForm = ({ roles }: { roles: IRole[] }) => {
       return;
     }
     toast.success(data);
+    form.reset({
+      ...form.getValues(),
+      email: "",
+    });
   }
   return (
     <Form {...form}>
@@ -55,7 +59,9 @@ export const RoleForm = ({ roles }: { roles: IRole[] }) => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <Input {...field} placeholder="User email" className="w-64" />
+              <FormControl>
+                <Input {...field} placeholder="User email" className="w-64" />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
