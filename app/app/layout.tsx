@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(inter.className, "h-dvh")}>
+      <body className={cn(inter.className, "h-dvh p-0")}>
         <NavBar className="mb-4" />
         <div className="pl-4 pr-4">{children}</div>
         <Toaster />

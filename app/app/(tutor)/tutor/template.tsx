@@ -10,7 +10,7 @@ export default async function Template({
   if (!session) return <div>Unauthorized</div>;
   const isTutor = await hasAnyRole({
     email: session.user!.email as string,
-    roles: ["staff"],
+    roles: ["tutor"],
   });
   if (!isTutor)
     return <div>Forbidden you need tutor role to access this page.</div>;
