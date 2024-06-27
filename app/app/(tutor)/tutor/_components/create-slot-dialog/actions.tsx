@@ -32,7 +32,7 @@ export async function createEvaluationSlots(
   }
   if (p.startTime.split(":")[1] != "00" || p.endTime.split(":")[1] != "00") {
     throw new Error(
-      "Congrats on tryng to break the system! Contact Guang for some Cookies"
+      "Congrats on trying to break the system! Contact Guang for some Cookies"
     );
   }
   const start = new Date(p.date);
