@@ -11,7 +11,8 @@
         "bradlc.vscode-tailwindcss",
         "heybourn.headwind",
         "esbenp.prettier-vscode",
-        "WallabyJs.console-ninja"
+        "WallabyJs.console-ninja",
+        "WallabyJs.quokka-vscode"
       ]
     }
   }

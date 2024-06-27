@@ -10,6 +10,7 @@ import {
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "next-auth/adapters";
 import { usersToRoles } from "./rbac";
+import { evaluationSlots } from "../evaluations";
 
 export const users = pgTable("user", {
   // fields from next-auth
@@ -54,7 +55,7 @@ export const accounts = pgTable(
   })
 );
 
-export const accountsRelations = relations(accounts, ({ one }) => ({
+export const accountsRelations = relations(accounts, ({ one, many }) => ({
   user: one(users, {
     fields: [accounts.userId],
     references: [users.id],
@@ -63,6 +64,7 @@ export const accountsRelations = relations(accounts, ({ one }) => ({
     fields: [accounts.userId],
     references: [profiles.userId],
   }),
+  evaluationSlots: many(evaluationSlots),
 }));
 
 export const sessions = pgTable("session", {

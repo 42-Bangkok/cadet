@@ -23,6 +23,8 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { createEvaluationSlots } from "./actions";
+import { useState } from "react";
 
 const FormSchema = z.object({
   date: z.date({
@@ -57,6 +59,7 @@ const FormSchema = z.object({
 });
 
 export const CreateSlotDialog = () => {
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -65,18 +68,27 @@ export const CreateSlotDialog = () => {
       endTime: "17:00",
     },
   });
-  async function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
+  async function onSubmit() {
     if (
-      Number(data.startTime.split(":")[0]) >= Number(data.endTime.split(":")[0])
+      Number(form.getValues("startTime").split(":")[0]) >=
+      Number(form.getValues("endTime").split(":")[0])
     ) {
-      console.log(data);
       toast.error("End time must be after start time.");
       return;
     }
+    const { data, error } = await createEvaluationSlots({
+      date: new Date(form.getValues("date")),
+      startTime: form.getValues("startTime"),
+      endTime: form.getValues("endTime"),
+    });
+    if (error) {
+      toast.error("Failed to create slots.");
+      return;
+    }
+    toast.success(`Created ${data} slots.`);
   }
   return (
-    <Dialog>
+    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogTrigger asChild>
         <Button className="max-w-32">Create slots</Button>
       </DialogTrigger>
@@ -114,7 +126,22 @@ export const CreateSlotDialog = () => {
                   name="startTime"
                   render={({ field }) => (
                     <FormItem>
-                      <Input {...field} type="time" className="w-full" />
+                      <Input
+                        {...field}
+                        type="time"
+                        step={3600}
+                        onChange={(e) => {
+                          // disallow minutes
+                          const date = new Date();
+                          const [hours] = e.target.value.split(":");
+                          date.setHours(Number(hours), 0, 0, 0);
+                          form.setValue(
+                            "startTime",
+                            date.toTimeString().slice(0, 5)
+                          );
+                        }}
+                        className="w-full"
+                      />
                       <FormMessage />
                     </FormItem>
                   )}
@@ -124,7 +151,22 @@ export const CreateSlotDialog = () => {
                   name="endTime"
                   render={({ field }) => (
                     <FormItem>
-                      <Input {...field} type="time" className="w-full" />
+                      <Input
+                        {...field}
+                        type="time"
+                        step={3600}
+                        onChange={(e) => {
+                          // disallow minutes
+                          const date = new Date();
+                          const [hours] = e.target.value.split(":");
+                          date.setHours(Number(hours), 0, 0, 0);
+                          form.setValue(
+                            "startTime",
+                            date.toTimeString().slice(0, 5)
+                          );
+                        }}
+                        className="w-full"
+                      />
                       <FormMessage />
                     </FormItem>
                   )}
@@ -133,13 +175,23 @@ export const CreateSlotDialog = () => {
                   Time must be from 8:00 to 17:00.
                 </FormDescription>
               </div>
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={form.formState.isSubmitting}
-              >
-                Create slots
-              </Button>
+              <div className="flex flex-col gap-2">
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={form.formState.isSubmitting}
+                >
+                  Create slots
+                </Button>
+                <Button
+                  type="button"
+                  onClick={() => setDialogOpen(false)}
+                  className="w-full"
+                  variant={"destructive"}
+                >
+                  Close
+                </Button>
+              </div>
             </div>
           </form>
         </Form>
