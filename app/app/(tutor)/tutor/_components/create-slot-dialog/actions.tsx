@@ -30,6 +30,11 @@ export async function createEvaluationSlots(
   if (!(await hasAnyRole({ email: session.user?.email!, roles: ["tutor"] }))) {
     throw new Error("Unauthorized");
   }
+  if (p.startTime.split(":")[1] != "00" || p.endTime.split(":")[1] != "00") {
+    throw new Error(
+      "Congrats on tryng to break the system! Contact Guang for some Cookies"
+    );
+  }
   const start = new Date(p.date);
   const startHour = Number(p.startTime.split(":")[0]);
   const endHour = Number(p.endTime.split(":")[0]);
