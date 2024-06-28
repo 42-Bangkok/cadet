@@ -15,7 +15,7 @@ interface ICreateEvaluationSlots {
 /**
  * Creates evaluation slots for a tutor.
  * @param {ICreateEvaluationSlots} p - The parameters object.
- * @param {Date} p.date - The date of the slots.
+ * @param {Date[]} p.dates - The dates of the slots.
  * @param {string} p.startTime - The start time of the slots.
  * @param {string} p.endTime - The end time of the slots.
  * @returns {Promise<SAResponse<Number>>} - A promise that resolves to the number of slots created.
@@ -36,7 +36,6 @@ export async function createEvaluationSlots(
     );
   }
   const slots = [];
-  console.log(p.dates);
   for (const date of p.dates) {
     const start = new Date(date);
     const startHour = Number(p.startTime.split(":")[0]);
