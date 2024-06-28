@@ -118,7 +118,7 @@ export const CreateSlotDialog = () => {
                 </FormItem>
               )}
             />
-            <div className="flex flex-col gap-4 w-full">
+            <div className="flex flex-col gap-4 w-full justify-between">
               <div className="flex flex-col gap-1">
                 <FormField
                   control={form.control}
