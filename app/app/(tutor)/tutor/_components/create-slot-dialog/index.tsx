@@ -80,7 +80,7 @@ export const CreateSlotDialog = () => {
       endTime: form.getValues("endTime"),
     });
     if (error) {
-      toast.error("Failed to create slots.");
+      toast.error(error);
       return;
     }
     toast.success(`Created ${data} slots.`);
@@ -172,7 +172,8 @@ export const CreateSlotDialog = () => {
                   )}
                 />
                 <FormDescription>
-                  Time must be from 8:00 to 17:00.
+                  Time must be from 8:00 to 17:00. Total slots to be created
+                  must be less than 100.
                 </FormDescription>
               </div>
               <div className="flex flex-col gap-2">

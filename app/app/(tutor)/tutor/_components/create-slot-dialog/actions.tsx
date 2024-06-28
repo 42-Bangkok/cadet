@@ -51,6 +51,12 @@ export async function createEvaluationSlots(
       });
     }
   }
+  if (slots.length === 0) {
+    return { data: null, error: "No slot to create" };
+  }
+  if (slots.length > 100) {
+    return { data: null, error: "Too many slots to create, slow down!" };
+  }
   const res = await db
     .insert(evaluationSlots)
     .values(slots)
