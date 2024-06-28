@@ -27,9 +27,7 @@ import { createEvaluationSlots } from "./actions";
 import { useState } from "react";
 
 const FormSchema = z.object({
-  date: z.date({
-    required_error: "A date is required.",
-  }),
+  dates: z.array(z.date()),
   startTime: z
     .string({
       required_error: "A start time is required.",
@@ -63,7 +61,7 @@ export const CreateSlotDialog = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      date: new Date(),
+      date: [new Date()],
       startTime: "08:00",
       endTime: "17:00",
     },
@@ -77,7 +75,7 @@ export const CreateSlotDialog = () => {
       return;
     }
     const { data, error } = await createEvaluationSlots({
-      date: new Date(form.getValues("date")),
+      dates: form.getValues("dates"),
       startTime: form.getValues("startTime"),
       endTime: form.getValues("endTime"),
     });
@@ -103,11 +101,11 @@ export const CreateSlotDialog = () => {
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-2">
             <FormField
               control={form.control}
-              name="date"
+              name="dates"
               render={({ field }) => (
                 <FormItem>
                   <Calendar
-                    mode="single"
+                    mode="multiple"
                     selected={field.value}
                     onSelect={field.onChange}
                     disabled={(date) =>

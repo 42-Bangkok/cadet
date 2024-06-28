@@ -7,7 +7,7 @@ import { hasAnyRole } from "@/lib/rbac/core";
 import { SAResponse } from "@/types/sa-response";
 
 interface ICreateEvaluationSlots {
-  date: Date;
+  dates: Date[];
   startTime: string;
   endTime: string;
 }
@@ -35,18 +35,21 @@ export async function createEvaluationSlots(
       "Congrats on trying to break the system! Contact Guang for some Cookies"
     );
   }
-  const start = new Date(p.date);
-  const startHour = Number(p.startTime.split(":")[0]);
-  const endHour = Number(p.endTime.split(":")[0]);
-  const range = endHour - startHour;
   const slots = [];
-  for (let i = 0; i < range; i++) {
-    const startDateTime = new Date(start);
-    startDateTime.setHours(startHour + i, 0, 0, 0);
-    slots.push({
-      evaluatorUserId: session.user!.id!,
-      startDateTime: startDateTime,
-    });
+  console.log(p.dates);
+  for (const date of p.dates) {
+    const start = new Date(date);
+    const startHour = Number(p.startTime.split(":")[0]);
+    const endHour = Number(p.endTime.split(":")[0]);
+    const range = endHour - startHour;
+    for (let i = 0; i < range; i++) {
+      const startDateTime = new Date(start);
+      startDateTime.setHours(startHour + i, 0, 0, 0);
+      slots.push({
+        evaluatorUserId: session.user!.id!,
+        startDateTime: startDateTime,
+      });
+    }
   }
   const res = await db
     .insert(evaluationSlots)
