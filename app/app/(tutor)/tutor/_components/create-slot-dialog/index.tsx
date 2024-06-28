@@ -94,7 +94,8 @@ export const CreateSlotDialog = () => {
         <DialogHeader>
           <DialogTitle>Create slots</DialogTitle>
           <DialogDescription>
-            Select a date and a range of time available for cadets to book.
+            Select date(s) and a range of time available for cadets to book. You
+            can delete some slots later.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -118,7 +119,7 @@ export const CreateSlotDialog = () => {
               )}
             />
             <div className="flex flex-col gap-4 w-full">
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-1">
                 <FormField
                   control={form.control}
                   name="startTime"
@@ -144,6 +145,7 @@ export const CreateSlotDialog = () => {
                     </FormItem>
                   )}
                 />
+                <p className="rotate-90 text-center">~</p>
                 <FormField
                   control={form.control}
                   name="endTime"
