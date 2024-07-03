@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, unique } from "drizzle-orm/pg-core";
+import { boolean, pgTable, text, timestamp, unique } from "drizzle-orm/pg-core";
 import { nanoid } from "nanoid";
 import { users } from "../users";
 import { relations } from "drizzle-orm";
@@ -20,6 +20,7 @@ export const evaluationSlots = pgTable(
     teamLeaderUserId: text("teamLeaderUserId").references(() => users.id, {
       onDelete: "set null",
     }),
+    isEvaluated: boolean("isEvaluated").notNull().default(false),
   },
   (t) => ({
     unq: unique().on(t.startDateTime, t.evaluatorUserId),
