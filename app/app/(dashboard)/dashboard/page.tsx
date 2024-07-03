@@ -4,18 +4,19 @@ import {
   TypographyLead,
 } from "@/components/typographies";
 import { FreeEvalSlotsTab } from "./_components/free-eval-slots-tab";
+import { BookedSlotsCards } from "./_components/booked-slots-cards";
 
 export default async function Page() {
   return (
     <main className="flex flex-col gap-2">
       <TypographyH1>Cadet Dashboard</TypographyH1>
       <TypographyH2>Upcoming evaluation</TypographyH2>
-      {"TODO: Show booked slot here, also edit booked slot"}
+      <BookedSlotsCards />
       <TypographyH2>Available evaluation slots</TypographyH2>
       <TypographyLead className="text-sm">
         Here you can book evaluation slots with tutors. Only one slot can be
-        booked at a time. Booked slot cannot be canncelled. Slot must be booked
-        at least 24 hours in advance.
+        booked at a time. Booked slot cannot be cancelled after 30 minutes. Slot
+        must be booked at least 24 hours in advance.
       </TypographyLead>
 
       <FreeEvalSlotsTab />
