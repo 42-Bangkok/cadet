@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,20 +7,24 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { InferSelectModel } from "drizzle-orm";
-import { evaluationSlots, users } from "@/drizzle/schemas";
+import { evaluatees, evaluationSlots, users } from "@/drizzle/schemas";
 import { CancelBtn } from "./cancel-btn";
 
 type TBookedSlotCard = InferSelectModel<typeof evaluationSlots> & {
+  evaluatee: InferSelectModel<typeof evaluatees>;
+  evaluationSlot: InferSelectModel<typeof evaluationSlots>;
   evaluator: InferSelectModel<typeof users>;
 };
 
 export const BookedSlotCard = (p: TBookedSlotCard) => {
-  const timeEnds = new Date(p.startDateTime);
+  const timeEnds = new Date(p.evaluationSlot.startDateTime);
   timeEnds.setHours(timeEnds.getHours() + 1);
   const remainingHours = Math.floor(
-    (p.startDateTime.getTime() - new Date().getTime()) / (1000 * 60 * 60)
+    (p.evaluationSlot.startDateTime.getTime() - new Date().getTime()) /
+      (1000 * 60 * 60)
   );
-  const isCancelable = p.startDateTime.getTime() - Date.now() > 1000 * 60 * 30;
+  const isCancelable =
+    p.evaluationSlot.startDateTime.getTime() - Date.now() > 1000 * 60 * 30;
   return (
     <Card className="w-[350px]">
       <CardHeader>
@@ -31,7 +34,7 @@ export const BookedSlotCard = (p: TBookedSlotCard) => {
       <CardContent>
         <p className="font-bold">Evaluator: Time:</p>
         <p>
-          {p.startDateTime.toLocaleString("en-US", {
+          {p.evaluationSlot.startDateTime.toLocaleString("en-US", {
             day: "2-digit",
             month: "2-digit",
             year: "2-digit",
@@ -48,7 +51,7 @@ export const BookedSlotCard = (p: TBookedSlotCard) => {
         <p>{isCancelable ? "hidden until uncancellable." : p.evaluator.name}</p>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <CancelBtn id={p.id} disabled={!isCancelable} />
+        <CancelBtn id={p.evaluationSlot.id} disabled={!isCancelable} />
       </CardFooter>
     </Card>
   );

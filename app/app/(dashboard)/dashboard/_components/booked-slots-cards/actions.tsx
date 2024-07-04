@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@/auth";
-import { evaluationSlots } from "@/drizzle/schemas";
+import { evaluatees, evaluationSlots } from "@/drizzle/schemas";
 import { db } from "@/lib/db/clients";
 import { SAResponse } from "@/types/sa-response";
 import { and, eq } from "drizzle-orm";
@@ -16,24 +16,28 @@ export async function cancelBookedSlot({
   if (!session) {
     throw new Error("Unauthenticated");
   }
-  const slot = await db.query.evaluationSlots.findFirst({
+  // const slot = await db.query.evaluationSlots.findFirst({
+  //   where: and(eq(evaluationSlots.id, id)),
+  // });
+  const evaluatee = await db.query.evaluatees.findFirst({
     where: and(
-      eq(evaluationSlots.id, id),
-      eq(evaluationSlots.teamLeaderUserId, session!.user!.id!)
+      eq(evaluatees.userId, session!.user!.id!),
+      eq(evaluatees.evaluationSlotId, id)
     ),
+    with: {
+      evaluationSlot: true,
+    },
   });
-  if (!slot) {
+  if (!evaluatee) {
     throw new Error("Slot not found");
   }
-  if (slot.startDateTime.getTime() - Date.now() < 1000 * 60 * 30) {
+  if (
+    evaluatee.evaluationSlot.startDateTime.getTime() - Date.now() <
+    1000 * 60 * 30
+  ) {
     return { data: null, error: "Slot cannot be cancelled after 30 minutes" };
   }
-  await db
-    .update(evaluationSlots)
-    .set({
-      teamLeaderUserId: null,
-    })
-    .where(eq(evaluationSlots.id, id));
+  await db.delete(evaluatees).where(eq(evaluatees.evaluationSlotId, id));
   revalidatePath("/dashboard");
   return { data: true, error: null };
 }
