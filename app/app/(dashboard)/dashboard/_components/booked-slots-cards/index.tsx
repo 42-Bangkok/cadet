@@ -9,7 +9,7 @@ export const BookedSlotsCards = async () => {
   const session = await auth();
   const evaluator = alias(users, "evaluator");
 
-  const bookedSlots = await db
+  const res = await db
     .select()
     .from(evaluatees)
     .where(eq(evaluatees.userId, session!.user!.id!))
@@ -21,13 +21,15 @@ export const BookedSlotsCards = async () => {
       )
     )
     .leftJoin(evaluator, eq(evaluator.id, evaluationSlots.evaluatorUserId));
-  if (bookedSlots.length === 0) {
+  if (res.length === 0) {
     return <div>{"No booked slots"}</div>;
   }
   return (
     <div className="grid grid-cols-1 gap-4">
-      {bookedSlots.map((slot) => (
-        <BookedSlotCard key={slot.evaluationSlot.id} {...slot} />
+      {res.map((slot) => (
+        // TODO: Aggregate evaluatees
+        // @ts-ignore
+        <BookedSlotCard key={slot.evaluationSlot!.id} {...slot} />
       ))}
     </div>
   );

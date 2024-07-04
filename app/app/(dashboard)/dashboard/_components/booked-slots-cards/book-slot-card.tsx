@@ -10,8 +10,8 @@ import { InferSelectModel } from "drizzle-orm";
 import { evaluatees, evaluationSlots, users } from "@/drizzle/schemas";
 import { CancelBtn } from "./cancel-btn";
 
-type TBookedSlotCard = InferSelectModel<typeof evaluationSlots> & {
-  evaluatee: InferSelectModel<typeof evaluatees>;
+export type TBookedSlotCard = InferSelectModel<typeof evaluationSlots> & {
+  evaluatees: InferSelectModel<typeof evaluatees>[];
   evaluationSlot: InferSelectModel<typeof evaluationSlots>;
   evaluator: InferSelectModel<typeof users>;
 };

@@ -4,7 +4,7 @@ import { auth } from "@/auth";
 import { evaluatees, evaluationSlots } from "@/drizzle/schemas";
 import { db } from "@/lib/db/clients";
 import { SAResponse } from "@/types/sa-response";
-import { eq, and, isNull, gt, gte } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 interface IBookSlot {
