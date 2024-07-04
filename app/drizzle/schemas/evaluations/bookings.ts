@@ -49,7 +49,6 @@ export const evaluatees = pgTable("evaluatee", {
   userId: text("userId")
     .references(() => users.id)
     .notNull(),
-  isTeamLeader: boolean("isTeamLeader").notNull().default(false),
   evaluationSlotId: text("evaluationSlotId")
     .references(() => evaluationSlots.id)
     .notNull(),
