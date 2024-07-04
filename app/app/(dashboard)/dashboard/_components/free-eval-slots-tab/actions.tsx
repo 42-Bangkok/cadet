@@ -20,6 +20,7 @@ export async function BookSlot(p: IBookSlot): Promise<SAResponse<boolean>> {
   if (!session) {
     throw new Error("Unauthenticated");
   }
+  // TODO: optimize using select
   const qsEvaluatee = await db.query.evaluatees.findMany({
     where: and(eq(evaluatees.userId, session!.user!.id!)),
     with: {
@@ -32,6 +33,7 @@ export async function BookSlot(p: IBookSlot): Promise<SAResponse<boolean>> {
   ) {
     return { data: null, error: "You already have a booked, unevaluated slot" };
   }
+  // ENDOF TODO: optimize using select
   const slot = await db.query.evaluationSlots.findFirst({
     where: and(eq(evaluationSlots.startDateTime, p.startDateTime)),
     with: {
