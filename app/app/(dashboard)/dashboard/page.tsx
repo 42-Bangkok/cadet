@@ -18,7 +18,6 @@ export default async function Page() {
         booked at a time. Booked slot cannot be cancelled after 30 minutes. Slot
         must be booked at least 24 hours in advance.
       </TypographyLead>
-
       <FreeEvalSlotsTab />
     </main>
   );

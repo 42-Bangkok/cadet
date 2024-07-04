@@ -15,14 +15,18 @@ async function getFreeEvalSlots() {
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
   const evalSlots = await db.query.evaluationSlots.findMany({
-    where: and(
-      isNull(evaluationSlots.teamLeaderUserId),
-      gte(evaluationSlots.startDateTime, tomorrow)
-    ),
+    where: and(gte(evaluationSlots.startDateTime, tomorrow)),
     columns: {
       startDateTime: true,
     },
+    with: {
+      evaluatees: true,
+    },
     orderBy: [asc(evaluationSlots.startDateTime)],
   });
-  return [...new Set(evalSlots)];
+  const freeSlots = evalSlots.filter((slot) => slot.evaluatees.length === 0);
+  let res = freeSlots.map((slot) => {
+    return { startDateTime: slot.startDateTime };
+  });
+  return [...new Set(res)];
 }
