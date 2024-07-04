@@ -19,7 +19,7 @@ import { users } from "./authjs";
 /**
  * Roles for RBAC
  */
-export const roles = pgTable("roles", {
+export const roles = pgTable("role", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
@@ -32,7 +32,7 @@ export const rolesRelations = relations(roles, ({ many }) => ({
 }));
 
 export const usersToRoles = pgTable(
-  "usersToRoles",
+  "userToRole",
   {
     userId: text("userId")
       .notNull()
@@ -63,7 +63,7 @@ export const usersToRolesRelations = relations(usersToRoles, ({ one }) => ({
  * When the user is created, the role is assigned to the user.
  */
 export const roleAssignQueues = pgTable(
-  "roleAssignQueues",
+  "roleAssignQueue",
   {
     email: text("email").notNull(),
     roleId: text("roleId")

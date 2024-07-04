@@ -29,7 +29,7 @@ export const evaluationSlots = pgTable(
 
 export const evaluationSlotsRelations = relations(
   evaluationSlots,
-  ({ one }) => ({
+  ({ one, many }) => ({
     evaluator: one(users, {
       fields: [evaluationSlots.evaluatorUserId],
       references: [users.id],
@@ -38,5 +38,31 @@ export const evaluationSlotsRelations = relations(
       fields: [evaluationSlots.teamLeaderUserId],
       references: [users.id],
     }),
+    evaluatees: many(evaluatees),
   })
 );
+
+export const evaluatees = pgTable("evaluatee", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => nanoid()),
+  userId: text("userId")
+    .references(() => users.id)
+    .notNull(),
+  isTeamLeader: boolean("isTeamLeader").notNull().default(false),
+  evaluationSlotId: text("evaluationSlotId")
+    .references(() => evaluationSlots.id)
+    .notNull(),
+  comment: text("comment").notNull().default(""),
+});
+
+export const evaluateesRelations = relations(evaluatees, ({ one }) => ({
+  user: one(users, {
+    fields: [evaluatees.userId],
+    references: [users.id],
+  }),
+  evaluationSlot: one(evaluationSlots, {
+    fields: [evaluatees.evaluationSlotId],
+    references: [evaluationSlots.id],
+  }),
+}));

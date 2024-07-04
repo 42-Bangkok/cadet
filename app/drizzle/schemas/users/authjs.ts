@@ -87,7 +87,7 @@ export const verificationTokens = pgTable(
   })
 );
 
-export const profiles = pgTable("profiles", {
+export const profiles = pgTable("profile", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
