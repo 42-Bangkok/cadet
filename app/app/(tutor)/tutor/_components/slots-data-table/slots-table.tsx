@@ -1,12 +1,16 @@
 "use client";
 
 import { DataTable } from "@/components/ui/data-table";
-import { evaluationSlots } from "@/drizzle/schemas";
+import { evaluatees, evaluationSlots } from "@/drizzle/schemas";
 import { InferSelectModel } from "drizzle-orm";
 import { columns } from "./columns";
 
+type TSlots = InferSelectModel<typeof evaluationSlots> & {
+  evaluatees: InferSelectModel<typeof evaluatees>[];
+};
+
 interface ITab {
-  slots: InferSelectModel<typeof evaluationSlots>[];
+  slots: TSlots[];
 }
 
 export const SlotsTable = (p: ITab) => {

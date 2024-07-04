@@ -10,6 +10,9 @@ export const SlotsDataTable = async () => {
   const session = await auth();
   const slots = await db.query.evaluationSlots.findMany({
     where: eq(evaluationSlots.evaluatorUserId, session!.user!.id!),
+    with: {
+      evaluatees: true,
+    },
   });
   return (
     <div>

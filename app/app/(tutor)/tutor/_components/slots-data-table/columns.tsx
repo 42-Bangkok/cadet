@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { evaluationSlots } from "@/drizzle/schemas";
+import { evaluatees, evaluationSlots } from "@/drizzle/schemas";
 import { ColumnDef } from "@tanstack/react-table";
 import { InferSelectModel } from "drizzle-orm";
 import { deleteSlot } from "./actions";
@@ -28,7 +28,11 @@ const DeleteBtn = ({ id }: { id: string }) => {
   );
 };
 
-export const columns: ColumnDef<InferSelectModel<typeof evaluationSlots>>[] = [
+type TEvaluationSlots = InferSelectModel<typeof evaluationSlots> & {
+  evaluatees: InferSelectModel<typeof evaluatees>[];
+};
+
+export const columns: ColumnDef<TEvaluationSlots>[] = [
   {
     header: "#",
     cell: ({ row }) => {
@@ -45,7 +49,7 @@ export const columns: ColumnDef<InferSelectModel<typeof evaluationSlots>>[] = [
   {
     header: "Booked",
     cell: ({ row }) => {
-      return row.getValue("teamLeaderUserId") ? (
+      return row.original.evaluatees.length != 0 ? (
         <Badge>Yes</Badge>
       ) : (
         <Badge variant="secondary">No</Badge>
