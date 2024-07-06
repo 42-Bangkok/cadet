@@ -9,10 +9,10 @@ type TSlots = InferSelectModel<typeof evaluationSlots> & {
   evaluatees: InferSelectModel<typeof evaluatees>[];
 };
 
-interface ITab {
+interface ISlotsTab {
   slots: TSlots[];
 }
 
-export const SlotsTable = (p: ITab) => {
+export const SlotsTable = (p: ISlotsTab) => {
   return <DataTable columns={columns} data={p.slots} />;
 };
