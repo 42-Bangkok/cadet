@@ -11,6 +11,7 @@ export default function Page() {
       temp
       <Link href="/staff/iam">Staff IAM</Link>
       <Link href="/tutor">Tutor Dashboard</Link>
+      <Link href="/dashboard">Cadet Dashboard</Link>
     </main>
   );
 }

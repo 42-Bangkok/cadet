@@ -20,7 +20,7 @@ export const BookedSlotsCards = async () => {
         gte(evaluationSlots.startDateTime, new Date())
       )
     )
-    .leftJoin(evaluator, eq(evaluator.id, evaluationSlots.evaluatorUserId));
+    .innerJoin(evaluator, eq(evaluator.id, evaluationSlots.evaluatorUserId));
   if (res.length === 0) {
     return <div>{"No booked slots"}</div>;
   }
