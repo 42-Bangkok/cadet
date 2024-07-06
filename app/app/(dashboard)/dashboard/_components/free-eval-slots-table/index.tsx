@@ -3,7 +3,7 @@ import { db } from "@/lib/db/clients";
 import { and, asc, gte, isNull } from "drizzle-orm";
 import { SlotsTable } from "./slots-table";
 
-export const FreeEvalSlotsTab = async () => {
+export const FreeEvalSlotsTable = async () => {
   const evalSlots = await getFreeEvalSlots();
   return <SlotsTable data={evalSlots} />;
 };

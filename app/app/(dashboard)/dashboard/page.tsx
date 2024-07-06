@@ -3,7 +3,7 @@ import {
   TypographyH2,
   TypographyLead,
 } from "@/components/typographies";
-import { FreeEvalSlotsTab } from "./_components/free-eval-slots-tab";
+import { FreeEvalSlotsTable } from "./_components/free-eval-slots-table";
 import { BookedSlotsCards } from "./_components/booked-slots-cards";
 
 export default async function Page() {
@@ -18,7 +18,7 @@ export default async function Page() {
         booked at a time. Booked slot cannot be cancelled after 30 minutes. Slot
         must be booked at least 24 hours in advance.
       </TypographyLead>
-      <FreeEvalSlotsTab />
+      <FreeEvalSlotsTable />
     </main>
   );
 }
