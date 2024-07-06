@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Trash } from "iconoir-react";
 import Link from "next/link";
+import { nanoid } from "nanoid";
 
 const DeleteBtn = ({ id }: { id: string }) => {
   return (
@@ -65,17 +66,16 @@ export const columns: ColumnDef<TEvaluationSlots>[] = [
     },
   },
   {
+    id: "date",
     accessorKey: "startDateTime",
     header: "Date",
     cell: ({ row }) => {
-      return (row.getValue("startDateTime") as Date).toLocaleDateString(
-        "en-US",
-        {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-        }
-      );
+      const date = row.original.startDateTime.toLocaleDateString("en-US", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      });
+      return <div suppressHydrationWarning>{date}</div>;
     },
   },
   {
