@@ -32,7 +32,7 @@ export const BookedSlotCard = (p: TBookedSlotCard) => {
         <CardDescription>in {remainingHours} hours</CardDescription>
       </CardHeader>
       <CardContent>
-        <p className="font-bold">Evaluator: Time:</p>
+        <p className="font-bold">Time:</p>
         <p>
           {p.evaluationSlot.startDateTime.toLocaleString("en-US", {
             day: "2-digit",

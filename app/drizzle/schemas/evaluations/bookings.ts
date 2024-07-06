@@ -17,9 +17,6 @@ export const evaluationSlots = pgTable(
     evaluatorUserId: text("evaluatorUserId").references(() => users.id, {
       onDelete: "set null",
     }),
-    teamLeaderUserId: text("teamLeaderUserId").references(() => users.id, {
-      onDelete: "set null",
-    }),
     isEvaluated: boolean("isEvaluated").notNull().default(false),
   },
   (t) => ({
@@ -34,10 +31,6 @@ export const evaluationSlotsRelations = relations(
       fields: [evaluationSlots.evaluatorUserId],
       references: [users.id],
     }),
-    teamLeader: one(users, {
-      fields: [evaluationSlots.teamLeaderUserId],
-      references: [users.id],
-    }),
     evaluatees: many(evaluatees),
   })
 );
@@ -49,6 +42,7 @@ export const evaluatees = pgTable("evaluatee", {
   userId: text("userId")
     .references(() => users.id)
     .notNull(),
+  isTeamLeader: boolean("isTeamLeader").notNull().default(false),
   evaluationSlotId: text("evaluationSlotId")
     .references(() => evaluationSlots.id)
     .notNull(),

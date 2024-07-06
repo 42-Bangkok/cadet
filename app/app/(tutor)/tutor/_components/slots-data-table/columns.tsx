@@ -6,6 +6,7 @@ import { deleteSlot } from "./actions";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Trash } from "iconoir-react";
+import Link from "next/link";
 
 const DeleteBtn = ({ id }: { id: string }) => {
   return (
@@ -43,7 +44,14 @@ export const columns: ColumnDef<TEvaluationSlots>[] = [
     header: "Actions",
     accessorKey: "id",
     cell: ({ row }) => {
-      return <DeleteBtn id={row.getValue("id") as string} />;
+      return (
+        <div className="flex gap-1">
+          <Link href={`/tutor/evaluate/${row.original.id}/`}>
+            <Button>Evaluate</Button>
+          </Link>
+          <DeleteBtn id={row.original.id} />
+        </div>
+      );
     },
   },
   {
