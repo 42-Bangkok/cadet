@@ -4,7 +4,7 @@ import { db } from "@/lib/db/clients";
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { EvaluationForm } from "./_components/evaluation-form";
-import { TypographyH1 } from "@/components/typographies";
+import { TypographyH1, TypographyLead } from "@/components/typographies";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const slot = await getEvaluationSlot({ id: params.id });
@@ -22,6 +22,10 @@ export default async function Page({ params }: { params: { id: string } }) {
   return (
     <div>
       <TypographyH1>Evaluation</TypographyH1>
+      <TypographyLead className="text-md">
+        Evaluate the following cadets. Comments can be saved as many times as
+        you&apos;d need, but only during the evaluation period.
+      </TypographyLead>
       <EvaluationForm {...slot} />
     </div>
   );
