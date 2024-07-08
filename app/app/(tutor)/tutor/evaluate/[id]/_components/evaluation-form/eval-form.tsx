@@ -21,6 +21,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { TypographyH2 } from "@/components/typographies";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { IntraAvatar } from "./intra-avatar";
 
 const FormSchema = z.array(
   z.object({
@@ -45,19 +46,11 @@ export function EvalForm(p: { evaluatees: z.infer<typeof FormSchema> }) {
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <TypographyH2>Evaluatees</TypographyH2>
+    <div className="flex flex-col gap-4 w-full">
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
         {fields.map((field, index) => {
           return (
-            <Card key={field.id} className="flex gap-2 p-4">
-              <Avatar className="min-h-24 min-w-24">
-                <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
-                />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
+            <Card key={field.id} className="flex gap-2 p-4 h-32">
               <div className="flex flex-col gap-2 w-full">
                 <div className="flex gap-2">
                   <p className="font-bold">{field.name}</p>
@@ -68,7 +61,9 @@ export function EvalForm(p: { evaluatees: z.infer<typeof FormSchema> }) {
             </Card>
           );
         })}
-        <Button type="submit">Save</Button>
+        <Button type="submit" className="w-full">
+          Save
+        </Button>
       </form>
     </div>
   );

@@ -1,5 +1,9 @@
+import { Suspense } from "react";
 import { getEvaluationSlot } from "../../page";
 import { EvalForm } from "./eval-form";
+import { IntraAvatar } from "./intra-avatar";
+import { TypographyH2 } from "@/components/typographies";
+import { Card } from "@/components/ui/card";
 
 type TEvaluationForm = NonNullable<
   Awaited<ReturnType<typeof getEvaluationSlot>>
@@ -16,6 +20,9 @@ export const EvaluationForm = (p: TEvaluationForm) => {
       comment: evaluatee.comment,
     })),
   };
+  const providerAccountIds = p.evaluatees.map(
+    (evaluatee) => evaluatee.user.accounts[0].providerAccountId
+  );
   const timeString = `
   ${p.startDateTime.toLocaleString("en-US", {
     day: "2-digit",
@@ -33,7 +40,23 @@ export const EvaluationForm = (p: TEvaluationForm) => {
   return (
     <div>
       <p>{timeString}</p>
-      <EvalForm {...evalFormProps} />
+      <TypographyH2>Evaluatees</TypographyH2>
+      <div className="flex gap-4 p-4">
+        <div className="flex flex-col gap-6">
+          {providerAccountIds.map((id) => (
+            <Card
+              key={id}
+              className="flex h-32 items-center justify-center p-4"
+            >
+              <Suspense fallback={<IntraAvatar.Skeleton />}>
+                <IntraAvatar login={id} />
+              </Suspense>
+            </Card>
+          ))}
+        </div>
+        <EvalForm {...evalFormProps} />
+      </div>
+
       {/* <pre>{JSON.stringify(p, null, 2)}</pre> */}
     </div>
   );
