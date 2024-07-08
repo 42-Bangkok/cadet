@@ -30,9 +30,11 @@ export class FtApi {
     const r = await fetch(`${this.BASE_URL}/oauth/token`, {
       next: { revalidate: false },
       method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
       body: `grant_type=client_credentials&client_id=${this.AUTH_42_SCHOOL_ID}&client_secret=${this.AUTH_42_SCHOOL_SECRET}`,
     });
-    console.log(r);
     if (!r.ok) {
       throw new Error("Failed to get access token");
     }
@@ -84,3 +86,7 @@ export class FtApi {
     return user.image.link;
   }
 }
+
+// const ftApi = new FtApi();
+// const image = await ftApi.getUserById({ id: "lpumidol" });
+// console.log(image);
