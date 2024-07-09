@@ -24,7 +24,8 @@ export default async function Page({ params }: { params: { id: string } }) {
       <TypographyH1>Evaluation</TypographyH1>
       <TypographyLead className="text-md">
         Evaluate the following cadets. Comments can be saved as many times as
-        you&apos;d need, but only during the evaluation period.
+        you&apos;d need, but only after the evaluation period stated, and 30
+        minutes after.
       </TypographyLead>
       <EvaluationForm {...slot} />
     </div>

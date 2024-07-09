@@ -41,12 +41,12 @@ export const EvaluationForm = (p: TEvaluationForm) => {
     <div>
       <p>{timeString}</p>
       <TypographyH2>Evaluatees</TypographyH2>
-      <div className="flex gap-4 p-4">
+      <div className="flex gap-2 p-4">
         <div className="flex flex-col gap-6">
           {providerAccountIds.map((id) => (
             <Card
               key={id}
-              className="flex h-32 items-center justify-center p-4"
+              className="rounded-l-full flex h-32 items-center justify-center p-4 pr-2"
             >
               <Suspense fallback={<IntraAvatar.Skeleton />}>
                 <IntraAvatar login={id} />

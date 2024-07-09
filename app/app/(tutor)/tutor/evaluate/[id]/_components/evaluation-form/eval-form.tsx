@@ -50,7 +50,7 @@ export function EvalForm(p: { evaluatees: z.infer<typeof FormSchema> }) {
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
         {fields.map((field, index) => {
           return (
-            <Card key={field.id} className="flex gap-2 p-4 h-32">
+            <Card key={field.id} className="flex gap-2 p-4 h-32 rounded-l-none">
               <div className="flex flex-col gap-2 w-full">
                 <div className="flex gap-2">
                   <p className="font-bold">{field.name}</p>
