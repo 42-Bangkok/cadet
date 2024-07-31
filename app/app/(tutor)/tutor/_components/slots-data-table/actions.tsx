@@ -20,6 +20,15 @@ export async function deleteSlot({
   if (!session) {
     throw new Error("Unauthenthicated");
   }
+  const slot = await db.query.evaluationSlots.findFirst({
+    where: eq(evaluationSlots.id, id),
+  });
+  if (!slot) {
+    return { data: null, error: "Not found" };
+  }
+  if (slot.isEvaluated === true) {
+    return { data: null, error: "Cannot delete evaluated slot" };
+  }
   const res = await db
     .delete(evaluationSlots)
     .where(
@@ -29,9 +38,7 @@ export async function deleteSlot({
       )
     )
     .returning();
-  if (res.length === 0) {
-    return { data: null, error: "Not found" };
-  }
+
   revalidatePath("/tutor");
   return { data: true, error: null };
 }
