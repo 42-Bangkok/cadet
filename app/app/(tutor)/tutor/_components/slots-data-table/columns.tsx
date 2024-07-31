@@ -7,13 +7,13 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Trash } from "iconoir-react";
 import Link from "next/link";
-import { nanoid } from "nanoid";
 
-const DeleteBtn = ({ id }: { id: string }) => {
+const DeleteBtn = ({ id, disabled }: { id: string; disabled: boolean }) => {
   return (
     <Button
       variant="ghost"
       className="p-4"
+      disabled={disabled}
       onClick={async () => {
         const { data, error } = await deleteSlot({
           id,
@@ -50,7 +50,7 @@ export const columns: ColumnDef<TEvaluationSlots>[] = [
           <Link href={`/tutor/evaluate/${row.original.id}/`}>
             <Button>Evaluate</Button>
           </Link>
-          <DeleteBtn id={row.original.id} />
+          <DeleteBtn id={row.original.id} disabled={row.original.isEvaluated} />
         </div>
       );
     },
