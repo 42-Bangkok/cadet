@@ -1,6 +1,6 @@
 "use server";
 
-import { evaluatees } from "@/drizzle/schemas";
+import { evaluatees, evaluationSlots } from "@/drizzle/schemas";
 import { db } from "@/lib/db/clients";
 import { SAResponse } from "@/types/sa-response";
 import { eq } from "drizzle-orm";
@@ -13,6 +13,9 @@ interface ISubmitEvaluation {
   }[];
 }
 
+/**
+ * Submit evaluation
+ */
 export async function submitEvaluation(
   p: ISubmitEvaluation
 ): Promise<SAResponse<boolean>> {
@@ -25,6 +28,10 @@ export async function submitEvaluation(
   const evaluatee = await db.query.evaluatees.findFirst({
     where: eq(evaluatees.id, p.evaluatees[0].evaluateeId),
   });
+  await db
+    .update(evaluationSlots)
+    .set({ isEvaluated: true })
+    .where(eq(evaluationSlots.id, evaluatee!.evaluationSlotId));
   revalidatePath(`/tutor/evaluate/${evaluatee!.evaluationSlotId}`);
   return { data: true, error: null };
 }

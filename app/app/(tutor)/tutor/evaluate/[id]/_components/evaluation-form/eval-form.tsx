@@ -1,27 +1,13 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Textarea } from "@/components/ui/textarea";
-import { TypographyH2 } from "@/components/typographies";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { IntraAvatar } from "./intra-avatar";
 import { submitEvaluation } from "./actions";
 
 const FormSchema = z.array(
