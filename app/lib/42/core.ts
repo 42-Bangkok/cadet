@@ -72,6 +72,7 @@ export class FtApi {
       },
     });
     if (!r.ok) {
+      console.error(r.statusText);
       throw new Error("Failed to get user");
     }
     return await r.json();

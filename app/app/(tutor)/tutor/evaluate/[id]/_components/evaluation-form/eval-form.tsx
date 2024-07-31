@@ -22,6 +22,7 @@ import { TypographyH2 } from "@/components/typographies";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { IntraAvatar } from "./intra-avatar";
+import { submitEvaluation } from "./actions";
 
 const FormSchema = z.array(
   z.object({
@@ -40,9 +41,20 @@ export function EvalForm(p: { evaluatees: z.infer<typeof FormSchema> }) {
     control: form.control,
     name: "evaluatees",
   });
-  function onSubmit() {
-    console.log(form.getValues());
-    toast.success(<pre>{JSON.stringify(form.getValues(), null, 2)}</pre>);
+  async function onSubmit() {
+    const evaluatees = form.getValues().evaluatees.map((evaluatee) => ({
+      evaluateeId: evaluatee.evaluateeId,
+      comment: evaluatee.comment,
+    }));
+    const { data, error } = await submitEvaluation({
+      evaluatees,
+    });
+    if (error) {
+      toast.error("Error saving evaluation");
+      return;
+    }
+    form.reset({ ...form.getValues() });
+    toast.success("Saved");
   }
 
   return (
@@ -61,7 +73,11 @@ export function EvalForm(p: { evaluatees: z.infer<typeof FormSchema> }) {
             </Card>
           );
         })}
-        <Button type="submit" className="w-full">
+        <Button
+          type="submit"
+          className="w-full"
+          disabled={form.formState.isSubmitting || !form.formState.isDirty}
+        >
           Save
         </Button>
       </form>
