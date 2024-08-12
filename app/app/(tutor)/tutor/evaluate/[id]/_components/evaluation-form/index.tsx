@@ -1,9 +1,9 @@
 import { Suspense } from "react";
-import { getEvaluationSlot } from "../../page";
 import { EvalForm } from "./eval-form";
 import { IntraAvatar } from "./intra-avatar";
 import { TypographyH2 } from "@/components/typographies";
 import { Card } from "@/components/ui/card";
+import { getEvaluationSlot } from "@/lib/db/evaluations";
 
 type TEvaluationForm = NonNullable<
   Awaited<ReturnType<typeof getEvaluationSlot>>

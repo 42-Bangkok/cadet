@@ -61,7 +61,7 @@ export const CreateSlotDialog = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      date: [new Date()],
+      dates: [new Date()],
       startTime: "08:00",
       endTime: "17:00",
     },
