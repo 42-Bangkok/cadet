@@ -28,7 +28,7 @@ export class FtApi {
     secret_valid_until: number;
   }> {
     const r = await fetch(`${this.BASE_URL}/oauth/token`, {
-      next: { revalidate: false },
+      next: { revalidate: 0 },
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -87,7 +87,3 @@ export class FtApi {
     return user.image.link;
   }
 }
-
-// const ftApi = new FtApi();
-// const image = await ftApi.getUserById({ id: "lpumidol" });
-// console.log(image);
