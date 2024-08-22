@@ -9,6 +9,8 @@ import {
 import { InferSelectModel } from "drizzle-orm";
 import { evaluatees, evaluationSlots, users } from "@/drizzle/schemas";
 import { CancelBtn } from "./cancel-btn";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export type TBookedSlotCard = InferSelectModel<typeof evaluationSlots> & {
   evaluatees: InferSelectModel<typeof evaluatees>[];
@@ -25,6 +27,7 @@ export const BookedSlotCard = (p: TBookedSlotCard) => {
   );
   const isCancelable =
     p.evaluationSlot.startDateTime.getTime() - Date.now() > 1000 * 60 * 30;
+  const isEditable = p.evaluationSlot.startDateTime.getTime() > Date.now();
   return (
     <Card className="w-[350px]">
       <CardHeader>
@@ -50,7 +53,12 @@ export const BookedSlotCard = (p: TBookedSlotCard) => {
         <p className="font-bold">Evaluator:</p>
         <p>{isCancelable ? "hidden until uncancellable." : p.evaluator.name}</p>
       </CardContent>
-      <CardFooter className="flex justify-between">
+      <CardFooter className="flex gap-2 ">
+        <Button asChild disabled={!isEditable}>
+          <Link href={`/dashboard/evaluation/${p.evaluationSlot.id}/edit`}>
+            Edit
+          </Link>
+        </Button>
         <CancelBtn id={p.evaluationSlot.id} disabled={!isCancelable} />
       </CardFooter>
     </Card>
