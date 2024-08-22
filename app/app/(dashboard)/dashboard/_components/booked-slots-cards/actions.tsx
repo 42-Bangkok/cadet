@@ -16,9 +16,6 @@ export async function cancelBookedSlot({
   if (!session) {
     throw new Error("Unauthenticated");
   }
-  // const slot = await db.query.evaluationSlots.findFirst({
-  //   where: and(eq(evaluationSlots.id, id)),
-  // });
   const evaluatee = await db.query.evaluatees.findFirst({
     where: and(
       eq(evaluatees.userId, session!.user!.id!),
