@@ -14,9 +14,11 @@ export default async function Page() {
       <BookedSlotsCards />
       <TypographyH2>Available evaluation slots</TypographyH2>
       <TypographyLead className="text-sm">
-        Here you can book evaluation slots with tutors. Only one slot can be
-        booked at a time. Booked slot cannot be cancelled after 30 minutes. Slot
-        must be booked at least 24 hours in advance.
+        Here you can book evaluation slots with tutors.Only one slot can be
+        booked at a time. <br />
+        Booked slot cannot be cancelled after 30 minutes. <br />
+        Slot must be booked at least 24 hours in advance. <br />
+        Once booked, click edit to add team members.
       </TypographyLead>
       <FreeEvalSlotsTable />
     </main>
