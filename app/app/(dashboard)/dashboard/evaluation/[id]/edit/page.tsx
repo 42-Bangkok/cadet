@@ -1,22 +1,34 @@
 import { auth } from "@/auth";
 import { evaluatees, evaluationSlots } from "@/drizzle/schemas";
 import { db } from "@/lib/db/clients";
-import { and, eq, is } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { AddEvaluateeForm } from "./_components/add-evaluatee-form";
 import { IntraAvatar } from "./_components/intra-avatar";
 import { TypographyH1 } from "@/components/typographies";
 import { BackBtn } from "@/components/back-btn";
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const session = await auth();
-  const slot = await db.query.evaluationSlots.findFirst({
+async function getSlot({
+  id,
+  evaluatorUserId,
+}: {
+  id: string;
+  evaluatorUserId: string;
+}) {
+  return await db.query.evaluationSlots.findFirst({
     where: and(
-      eq(evaluationSlots.id, params.id),
-      eq(evaluationSlots.evaluatorUserId, session!.user!.id!)
+      eq(evaluationSlots.id, id),
+      eq(evaluationSlots.evaluatorUserId, evaluatorUserId)
     ),
   });
-  const qEvaluatee = await db.query.evaluatees.findMany({
-    where: eq(evaluatees.evaluationSlotId, params.id),
+}
+
+async function getEvaluatees({
+  evaluationSlotId,
+}: {
+  evaluationSlotId: string;
+}) {
+  return await db.query.evaluatees.findMany({
+    where: eq(evaluatees.evaluationSlotId, evaluationSlotId),
     with: {
       user: {
         with: {
@@ -25,7 +37,16 @@ export default async function Page({ params }: { params: { id: string } }) {
       },
     },
   });
-  const avatars = qEvaluatee.map((e) => ({
+}
+
+export default async function Page({ params }: { params: { id: string } }) {
+  const session = await auth();
+  const slot = await getSlot({
+    id: params.id,
+    evaluatorUserId: session!.user!.id!,
+  });
+  const evaluatees = await getEvaluatees({ evaluationSlotId: params.id });
+  const avatars = evaluatees.map((e) => ({
     evaluateeId: e.id,
     isTeamLeader: e.isTeamLeader,
     login: e.user.accounts[0].providerAccountId,
@@ -40,9 +61,6 @@ export default async function Page({ params }: { params: { id: string } }) {
     <main className="flex flex-col gap-4">
       <BackBtn />
       <TypographyH1>Edit Evaluation Slot</TypographyH1>
-      {/* TODO: remove this */}
-      {/* <pre>{JSON.stringify(slot, null, 2)}</pre>
-      <pre>{JSON.stringify(qEvaluatee, null, 2)}</pre> */}
       <div className="flex flex-col gap-4">
         <div className="flex gap-4">
           {avatars.map((d) => (
