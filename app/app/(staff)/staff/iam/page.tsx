@@ -10,6 +10,7 @@ import { db } from "@/lib/db/clients";
 import { AddRoleForm } from "./_components/add-role-form";
 import { RemoveRoleBtn } from "./_components/remove-role-btn";
 import { BackBtn } from "@/components/back-btn";
+import { TypographyH1 } from "@/components/typographies";
 
 async function queryUserRoles() {
   const roles = await db.query.usersToRoles.findMany({
@@ -43,7 +44,9 @@ export default async function Page() {
     <div className="flex flex-col gap-4">
       <div>
         <BackBtn />
-        <h1 className="font-bold">Super duper bare-bone RBAC (tm)</h1>
+        <TypographyH1 className="font-bold">
+          Super duper bare-bone RBAC (tm)
+        </TypographyH1>
         <p>
           Add or remove roles, if the user does not exist it will be added when
           logged in. <br /> A user can have multiple roles.
