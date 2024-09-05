@@ -29,7 +29,7 @@ export const columns: ColumnDef<TColumn>[] = [
           day: "2-digit",
           month: "2-digit",
           year: "numeric",
-        }
+        },
       );
     },
   },
@@ -42,7 +42,7 @@ export const columns: ColumnDef<TColumn>[] = [
         {
           hour: "2-digit",
           minute: "2-digit",
-        }
+        },
       );
       const startDateTime = new Date(row.getValue("startDateTime") as Date);
       const endDateTime = new Date(startDateTime);

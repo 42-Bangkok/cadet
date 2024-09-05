@@ -18,8 +18,8 @@ export const BookedSlotsCards = async () => {
       evaluationSlots,
       and(
         eq(evaluationSlots.id, evaluatees.evaluationSlotId),
-        gte(evaluationSlots.startDateTime, nowPlus30)
-      )
+        gte(evaluationSlots.startDateTime, nowPlus30),
+      ),
     )
     .innerJoin(evaluator, eq(evaluator.id, evaluationSlots.evaluatorUserId));
   if (qs.length === 0) {

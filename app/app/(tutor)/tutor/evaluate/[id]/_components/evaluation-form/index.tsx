@@ -21,7 +21,7 @@ export const EvaluationForm = (p: TEvaluationForm) => {
     })),
   };
   const providerAccountIds = p.evaluatees.map(
-    (evaluatee) => evaluatee.user.accounts[0].providerAccountId
+    (evaluatee) => evaluatee.user.accounts[0].providerAccountId,
   );
   const timeString = `
   ${p.startDateTime.toLocaleString("en-US", {

@@ -12,7 +12,7 @@ interface IRemoveEvaluatee {
 }
 
 export async function removeEvaluatee(
-  p: IRemoveEvaluatee
+  p: IRemoveEvaluatee,
 ): Promise<SAResponse<boolean>> {
   const session = await auth();
   if (!session) {

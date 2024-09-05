@@ -34,8 +34,8 @@ export async function deleteSlot({
     .where(
       and(
         eq(evaluationSlots.evaluatorUserId, session.user!.id!),
-        eq(evaluationSlots.id, id)
-      )
+        eq(evaluationSlots.id, id),
+      ),
     )
     .returning();
 

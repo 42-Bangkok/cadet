@@ -22,7 +22,7 @@ interface ICreateEvaluationSlots {
  * @returns {Promise<SAResponse<Number>>} - A promise that resolves to the number of slots created.
  */
 export async function createEvaluationSlots(
-  p: ICreateEvaluationSlots
+  p: ICreateEvaluationSlots,
 ): Promise<SAResponse<Number>> {
   const session = await auth();
   if (!session) {
@@ -33,7 +33,7 @@ export async function createEvaluationSlots(
   }
   if (p.startTime.split(":")[1] != "00" || p.endTime.split(":")[1] != "00") {
     throw new Error(
-      "Congrats on trying to break the system! Contact Guang for some Cookies"
+      "Congrats on trying to break the system! Contact Guang for some Cookies",
     );
   }
   const slots = [];

@@ -39,7 +39,7 @@ const FormSchema = z.object({
       },
       {
         message: "Invalid time.",
-      }
+      },
     ),
   endTime: z
     .string({
@@ -52,7 +52,7 @@ const FormSchema = z.object({
       },
       {
         message: "Invalid time.",
-      }
+      },
     ),
 });
 
@@ -136,7 +136,7 @@ export const CreateSlotDialog = () => {
                           date.setHours(Number(hours), 0, 0, 0);
                           form.setValue(
                             "startTime",
-                            date.toTimeString().slice(0, 5)
+                            date.toTimeString().slice(0, 5),
                           );
                         }}
                         className="w-full"
@@ -162,7 +162,7 @@ export const CreateSlotDialog = () => {
                           date.setHours(Number(hours), 0, 0, 0);
                           form.setValue(
                             "startTime",
-                            date.toTimeString().slice(0, 5)
+                            date.toTimeString().slice(0, 5),
                           );
                         }}
                         className="w-full"
