@@ -19,7 +19,8 @@ export default async function Page({ params }: { params: { id: string } }) {
     );
   }
   return (
-    <div>
+    <main>
+      <BackBtn />
       <TypographyH1>Evaluation</TypographyH1>
       <TypographyLead className="text-md">
         Evaluate the following cadets. Comments can be saved as many times as
@@ -27,6 +28,6 @@ export default async function Page({ params }: { params: { id: string } }) {
         minutes after.
       </TypographyLead>
       <EvaluationForm {...slot} />
-    </div>
+    </main>
   );
 }

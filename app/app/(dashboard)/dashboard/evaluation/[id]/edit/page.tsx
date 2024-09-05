@@ -5,6 +5,7 @@ import { and, eq, is } from "drizzle-orm";
 import { AddEvaluateeForm } from "./_components/add-evaluatee-form";
 import { IntraAvatar } from "./_components/intra-avatar";
 import { TypographyH1 } from "@/components/typographies";
+import { BackBtn } from "@/components/back-btn";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const session = await auth();
@@ -37,6 +38,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
   return (
     <main className="flex flex-col gap-4">
+      <BackBtn />
       <TypographyH1>Edit Evaluation Slot</TypographyH1>
       {/* TODO: remove this */}
       {/* <pre>{JSON.stringify(slot, null, 2)}</pre>

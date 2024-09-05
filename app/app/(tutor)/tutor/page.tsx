@@ -4,6 +4,7 @@ import { getOrCreateProfile } from "@/lib/users/core";
 import { Session } from "next-auth";
 import { ForeignerForm } from "./_components/foreigner-form";
 import { SlotsDataTable } from "./_components/slots-data-table";
+import { BackBtn } from "@/components/back-btn";
 
 export default async function Page() {
   const session = (await auth()) as Session;
@@ -11,6 +12,7 @@ export default async function Page() {
 
   return (
     <main className="flex flex-col gap-4">
+      <BackBtn />
       <TypographyH1>Tutor&apos;s Dashboard</TypographyH1>
       <p>Welcome, {session.user!.name}</p>
       <ForeignerForm id={profile.id} foreigner={profile.foreigner} />

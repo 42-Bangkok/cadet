@@ -5,6 +5,7 @@ import {
 } from "@/components/typographies";
 import { FreeEvalSlotsTable } from "./_components/free-eval-slots-table";
 import { BookedSlotsCards } from "./_components/booked-slots-cards";
+import { BackBtn } from "@/components/back-btn";
 
 export default async function Page() {
   return (
