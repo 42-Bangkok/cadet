@@ -16,7 +16,7 @@ const FormSchema = z.array(
     evaluateeId: z.string(),
     isTeamLeader: z.boolean(),
     comment: z.string(),
-  })
+  }),
 );
 
 export function EvalForm(p: { evaluatees: z.infer<typeof FormSchema> }) {

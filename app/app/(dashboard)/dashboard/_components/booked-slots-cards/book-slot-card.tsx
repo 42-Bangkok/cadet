@@ -23,7 +23,7 @@ export const BookedSlotCard = (p: TBookedSlotCard) => {
   timeEnds.setHours(timeEnds.getHours() + 1);
   const remainingHours = Math.floor(
     (p.evaluationSlot.startDateTime.getTime() - new Date().getTime()) /
-      (1000 * 60 * 60)
+      (1000 * 60 * 60),
   );
   const isCancelable =
     p.evaluationSlot.startDateTime.getTime() - Date.now() > 1000 * 60 * 30;

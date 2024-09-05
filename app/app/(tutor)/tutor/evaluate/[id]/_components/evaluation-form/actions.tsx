@@ -17,7 +17,7 @@ interface ISubmitEvaluation {
  * Submit evaluation
  */
 export async function submitEvaluation(
-  p: ISubmitEvaluation
+  p: ISubmitEvaluation,
 ): Promise<SAResponse<boolean>> {
   for (const evaluatee of p.evaluatees) {
     await db

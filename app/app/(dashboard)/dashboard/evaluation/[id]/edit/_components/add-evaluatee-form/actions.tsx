@@ -20,7 +20,7 @@ interface IAddEvaluatee {
 }
 
 export async function addEvaluatee(
-  p: IAddEvaluatee
+  p: IAddEvaluatee,
 ): Promise<SAResponse<boolean>> {
   const session = await auth();
   if (!session) {
@@ -29,7 +29,7 @@ export async function addEvaluatee(
   const slot = await db.query.evaluationSlots.findFirst({
     where: and(
       eq(evaluationSlots.id, p.evaluationSlotId),
-      eq(evaluationSlots.evaluatorUserId, session.user!.id!)
+      eq(evaluationSlots.evaluatorUserId, session.user!.id!),
     ),
   });
   if (!slot) {
@@ -72,7 +72,7 @@ export async function addEvaluatee(
   const evaluatee = await db.query.evaluatees.findFirst({
     where: and(
       eq(evaluatees.userId, account.userId),
-      eq(evaluatees.evaluationSlotId, p.evaluationSlotId)
+      eq(evaluatees.evaluationSlotId, p.evaluationSlotId),
     ),
   });
   if (evaluatee) {

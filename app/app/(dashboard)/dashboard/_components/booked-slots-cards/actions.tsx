@@ -19,7 +19,7 @@ export async function cancelBookedSlot({
   const evaluatee = await db.query.evaluatees.findFirst({
     where: and(
       eq(evaluatees.userId, session!.user!.id!),
-      eq(evaluatees.evaluationSlotId, id)
+      eq(evaluatees.evaluationSlotId, id),
     ),
     with: {
       evaluationSlot: true,

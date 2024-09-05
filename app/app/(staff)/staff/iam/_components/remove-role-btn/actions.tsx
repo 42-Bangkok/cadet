@@ -39,7 +39,7 @@ export async function removeRole({
   await db
     .delete(usersToRoles)
     .where(
-      and(eq(usersToRoles.userId, userId), eq(usersToRoles.roleId, roleId))
+      and(eq(usersToRoles.userId, userId), eq(usersToRoles.roleId, roleId)),
     );
   revalidatePath("/staff/iam");
   return { data: true, error: null };
