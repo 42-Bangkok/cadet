@@ -1,3 +1,5 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import { evaluatees, evaluationSlots } from "@/drizzle/schemas";
 import { ColumnDef } from "@tanstack/react-table";
@@ -87,7 +89,7 @@ export const columns: ColumnDef<TEvaluationSlots>[] = [
         {
           hour: "2-digit",
           minute: "2-digit",
-        },
+        }
       );
       const startDateTime = new Date(row.getValue("startDateTime") as Date);
       const endDateTime = new Date(startDateTime);
