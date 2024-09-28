@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { evaluationSlots } from "@/drizzle/schemas";
 import { db } from "@/lib/db/clients";
-import { eq } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 import { SlotsTable } from "./slots-table";
 import { CreateSlotDialog } from "../create-slot-dialog";
 import { TypographyH2 } from "@/components/typographies";
@@ -13,6 +13,7 @@ export const SlotsDataTable = async () => {
     with: {
       evaluatees: true,
     },
+    orderBy: [asc(evaluationSlots.startDateTime)],
   });
   const slotsWithEvaluatees = slots.filter((slot) => {
     return slot.evaluatees.length > 0;
