@@ -17,6 +17,7 @@ export const evaluationSlots = pgTable(
     evaluatorUserId: text("evaluatorUserId").references(() => users.id, {
       onDelete: "set null",
     }),
+    project: text("project"),
     isEvaluated: boolean("isEvaluated").notNull().default(false),
   },
   (t) => ({

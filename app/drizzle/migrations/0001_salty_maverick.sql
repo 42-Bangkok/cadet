@@ -1,0 +1,1 @@
+ALTER TABLE "evaluationSlot" ADD COLUMN "project" text;

@@ -6,6 +6,7 @@ import { AddEvaluateeForm } from "./_components/add-evaluatee-form";
 import { IntraAvatar } from "./_components/intra-avatar";
 import { TypographyH1 } from "@/components/typographies";
 import { BackBtn } from "@/components/back-btn";
+import { ProjectSelectForm } from "./_components/project-select-form";
 
 async function getSlot({
   id,
@@ -17,7 +18,7 @@ async function getSlot({
   return await db.query.evaluationSlots.findFirst({
     where: and(
       eq(evaluationSlots.id, id),
-      eq(evaluationSlots.evaluatorUserId, evaluatorUserId),
+      eq(evaluationSlots.evaluatorUserId, evaluatorUserId)
     ),
   });
 }
@@ -61,6 +62,11 @@ export default async function Page({ params }: { params: { id: string } }) {
     <main className="flex flex-col gap-4">
       <BackBtn />
       <TypographyH1>Edit Evaluation Slot</TypographyH1>
+      <ProjectSelectForm
+        userId={"lpumidol"}
+        project={slot.project}
+        evaluationSlotId={params.id}
+      />
       <div className="flex flex-col gap-4">
         <div className="flex gap-4">
           {avatars.map((d) => (
