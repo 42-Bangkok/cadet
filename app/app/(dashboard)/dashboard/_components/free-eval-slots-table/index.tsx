@@ -1,6 +1,6 @@
 import { evaluationSlots } from "@/drizzle/schemas";
 import { db } from "@/lib/db/clients";
-import { and, asc, gte, isNull } from "drizzle-orm";
+import { and, asc, gte } from "drizzle-orm";
 import { SlotsTable } from "./slots-table";
 
 export const FreeEvalSlotsTable = async () => {

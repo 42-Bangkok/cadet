@@ -11,11 +11,17 @@ interface IBookSlot {
   startDateTime: Date;
 }
 
+interface IBookSlotResponse {
+  evaluationSlotId: string;
+}
+
 /**
  * Book an available slot
  * - only one unevaluated slot can be booked at a time
  */
-export async function BookSlot(p: IBookSlot): Promise<SAResponse<boolean>> {
+export async function BookSlot(
+  p: IBookSlot
+): Promise<SAResponse<IBookSlotResponse>> {
   const session = await auth();
   if (!session) {
     throw new Error("Unauthenticated");
@@ -52,5 +58,5 @@ export async function BookSlot(p: IBookSlot): Promise<SAResponse<boolean>> {
     isTeamLeader: true,
   });
   revalidatePath("/dashboard");
-  return { data: true, error: null };
+  return { data: { evaluationSlotId: slot.id }, error: null };
 }
