@@ -66,6 +66,7 @@ export const CreateSlotDialog = () => {
       endTime: "17:00",
     },
   });
+  const userGmt = new Date().getTimezoneOffset();
   async function onSubmit() {
     if (
       Number(form.getValues("startTime").split(":")[0]) >=
@@ -78,6 +79,7 @@ export const CreateSlotDialog = () => {
       dates: form.getValues("dates"),
       startTime: form.getValues("startTime"),
       endTime: form.getValues("endTime"),
+      userGmt,
     });
     if (error) {
       toast.error(error);
