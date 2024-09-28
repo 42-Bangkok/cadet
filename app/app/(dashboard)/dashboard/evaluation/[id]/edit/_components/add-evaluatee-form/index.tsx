@@ -57,7 +57,11 @@ export function AddEvaluateeForm({
               <FormLabel>Add Members</FormLabel>
               <FormControl>
                 <div className="flex gap-2">
-                  <Input placeholder="login" className="w-[200px]" {...field} />
+                  <Input
+                    placeholder="intra login..."
+                    className="w-[200px]"
+                    {...field}
+                  />
                   <Button type="submit">Submit</Button>
                 </div>
               </FormControl>
