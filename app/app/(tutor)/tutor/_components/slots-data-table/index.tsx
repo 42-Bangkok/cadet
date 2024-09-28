@@ -14,13 +14,20 @@ export const SlotsDataTable = async () => {
       evaluatees: true,
     },
   });
+  const slotsWithEvaluatees = slots.filter((slot) => {
+    return slot.evaluatees.length > 0;
+  });
+  const slotsWithoutEvaluatees = slots.filter((slot) => {
+    return slot.evaluatees.length === 0;
+  });
+  const sortedSlots = [...slotsWithEvaluatees, ...slotsWithoutEvaluatees];
   return (
     <div>
       <div className="flex justify-between pb-2">
         <TypographyH2>Active Evaluation slots</TypographyH2>
         <CreateSlotDialog />
       </div>
-      <SlotsTable slots={slots} />
+      <SlotsTable slots={sortedSlots} />
     </div>
   );
 };
