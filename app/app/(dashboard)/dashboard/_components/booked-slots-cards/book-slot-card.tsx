@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -23,7 +25,7 @@ export const BookedSlotCard = (p: TBookedSlotCard) => {
   timeEnds.setHours(timeEnds.getHours() + 1);
   const remainingHours = Math.floor(
     (p.evaluationSlot.startDateTime.getTime() - new Date().getTime()) /
-      (1000 * 60 * 60),
+      (1000 * 60 * 60)
   );
   const isCancelable =
     p.evaluationSlot.startDateTime.getTime() - Date.now() > 1000 * 60 * 30;
@@ -36,7 +38,7 @@ export const BookedSlotCard = (p: TBookedSlotCard) => {
       </CardHeader>
       <CardContent>
         <p className="font-bold">Time:</p>
-        <p>
+        <p suppressHydrationWarning>
           {p.evaluationSlot.startDateTime.toLocaleString("en-US", {
             day: "2-digit",
             month: "2-digit",
