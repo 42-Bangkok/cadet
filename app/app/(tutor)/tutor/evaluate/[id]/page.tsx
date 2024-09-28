@@ -21,7 +21,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   return (
     <main>
       <BackBtn />
-      <TypographyH1>Evaluation</TypographyH1>
+      <TypographyH1>Evaluation: {slot.project}</TypographyH1>
       <TypographyLead className="text-md">
         Evaluate the following cadets. Comments can be saved as many times as
         you&apos;d need, but only after the evaluation period stated, and 30
