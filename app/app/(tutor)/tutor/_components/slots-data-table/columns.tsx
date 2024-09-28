@@ -52,7 +52,12 @@ export const columns: ColumnDef<TEvaluationSlots>[] = [
           <Link href={`/tutor/evaluate/${row.original.id}/`}>
             <Button>Evaluate</Button>
           </Link>
-          <DeleteBtn id={row.original.id} disabled={row.original.isEvaluated} />
+          <DeleteBtn
+            id={row.original.id}
+            disabled={
+              row.original.isEvaluated || row.original.evaluatees.length > 0
+            }
+          />
         </div>
       );
     },
