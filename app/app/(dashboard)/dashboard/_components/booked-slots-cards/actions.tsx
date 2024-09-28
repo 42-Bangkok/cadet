@@ -19,7 +19,7 @@ export async function cancelBookedSlot({
   const evaluatee = await db.query.evaluatees.findFirst({
     where: and(
       eq(evaluatees.userId, session!.user!.id!),
-      eq(evaluatees.evaluationSlotId, id),
+      eq(evaluatees.evaluationSlotId, id)
     ),
     with: {
       evaluationSlot: true,
@@ -27,6 +27,9 @@ export async function cancelBookedSlot({
   });
   if (!evaluatee) {
     throw new Error("Slot not found");
+  }
+  if (evaluatee.isTeamLeader != true) {
+    return { data: null, error: "Only team leaders can cancel slots" };
   }
   if (
     evaluatee.evaluationSlot.startDateTime.getTime() - Date.now() <
