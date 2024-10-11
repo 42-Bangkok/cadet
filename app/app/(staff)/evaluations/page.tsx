@@ -27,9 +27,14 @@ type Evaluation = {
   status: string;
 };
 
-async function getAllEvaluations(): Promise<DbEvaluation[]> {
+async function getAllEvaluations({
+  evaluationSlotId,
+}: {
+  evaluationSlotId: string;
+}): Promise<DbEvaluation[]> {
   try {
     return await db.query.evaluationSlots.findMany({
+      where: eq(evaluationSlots.id, evaluationSlotId),
       with: {
         evaluatees: {
           columns: {
@@ -79,7 +84,13 @@ function isStaffMember(email: string): boolean {
   return email.endsWith("@staff.42.fr");
 }
 
-export default async function EvaluationsPage() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: {
+    evaluationSlotId?: string;
+  };
+}) {
   try {
     const session = await auth();
 
@@ -93,7 +104,9 @@ export default async function EvaluationsPage() {
     //   redirect("/unauthorized"); // Assuming you have an unauthorized page
     // }
 
-    const dbEvaluations = await getAllEvaluations();
+    const dbEvaluations = await getAllEvaluations({
+      evaluationSlotId: searchParams?.evaluationSlotId || "",
+    });
     const evaluationsData = transformEvaluations(dbEvaluations);
 
     return <StaffEvaluations evaluations={evaluationsData} />;

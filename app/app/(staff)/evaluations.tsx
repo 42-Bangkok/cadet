@@ -1,6 +1,3 @@
-"use client";
-
-import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -10,7 +7,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
 
 interface Evaluation {
   id: string;
@@ -28,22 +24,6 @@ interface StaffEvaluationsProps {
 export default function StaffEvaluations({
   evaluations,
 }: StaffEvaluationsProps) {
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentEvaluations = evaluations.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-  );
-
-  const totalPages = Math.ceil(evaluations.length / itemsPerPage);
-
-  const handlePageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
-
   return (
     <div className="container mx-auto py-10">
       <Card>
@@ -64,7 +44,7 @@ export default function StaffEvaluations({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {currentEvaluations.map((evaluation) => (
+              {evaluations.map((evaluation) => (
                 <TableRow key={evaluation.id}>
                   <TableCell>{evaluation.id}</TableCell>
                   <TableCell>{evaluation.student}</TableCell>
@@ -76,23 +56,6 @@ export default function StaffEvaluations({
               ))}
             </TableBody>
           </Table>
-          <div className="flex justify-between items-center mt-4">
-            <Button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              Previous
-            </Button>
-            <span>
-              Page {currentPage} of {totalPages}
-            </span>
-            <Button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            >
-              Next
-            </Button>
-          </div>
         </CardContent>
       </Card>
     </div>
