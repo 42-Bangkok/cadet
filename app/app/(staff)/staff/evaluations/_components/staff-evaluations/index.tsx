@@ -1,3 +1,4 @@
+import { BackBtn } from "@/components/back-btn";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -21,11 +22,10 @@ interface StaffEvaluationsProps {
   evaluations: Evaluation[];
 }
 
-export default function StaffEvaluations({
-  evaluations,
-}: StaffEvaluationsProps) {
+export function StaffEvaluations({ evaluations }: StaffEvaluationsProps) {
   return (
     <div className="container mx-auto py-10">
+      <BackBtn />
       <Card>
         <CardHeader>
           <CardTitle>All Evaluations</CardTitle>

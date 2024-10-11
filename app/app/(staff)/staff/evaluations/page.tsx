@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import StaffEvaluations from "../evaluations";
+import { StaffEvaluations } from "./_components/staff-evaluations";
 import { auth } from "@/auth";
 import { db } from "@/lib/db/clients";
 import { evaluationSlots, accounts } from "@/drizzle/schemas";
@@ -92,11 +92,11 @@ export default async function Page({
   };
 }) {
   try {
-    const session = await auth();
+    // const session = await auth();
 
-    if (!session || !session.user?.email) {
-      redirect("/");
-    }
+    // if (!session || !session.user?.email) {
+    //   redirect("/");
+    // }
 
     // const isStaff = isStaffMember(session.user.email);
 

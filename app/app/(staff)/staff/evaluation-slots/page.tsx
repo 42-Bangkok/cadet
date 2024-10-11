@@ -4,6 +4,7 @@ import { db } from "@/lib/db/clients";
 import { evaluationSlots, accounts } from "@/drizzle/schemas";
 import { and, isNotNull } from "drizzle-orm";
 import Link from "next/link";
+import { BackBtn } from "@/components/back-btn";
 
 type DbEvaluationSlot = {
   id: string;
@@ -51,33 +52,23 @@ function transformEvaluationSlots(
 }
 
 export default async function EvaluationSlotsPage() {
-  try {
-    const session = await auth();
+  const dbEvaluationSlots = await getEvaluatedSlots();
+  const evaluationSlots = transformEvaluationSlots(dbEvaluationSlots);
 
-    if (!session || !session.user?.email) {
-      redirect("/");
-    }
-
-    const dbEvaluationSlots = await getEvaluatedSlots();
-    const evaluationSlots = transformEvaluationSlots(dbEvaluationSlots);
-
-    return (
-      <div>
-        <h1>Evaluated Slots</h1>
-        <ul>
-          {evaluationSlots.map((slot) => (
-            <li key={slot.id}>
-              <Link href={`/evaluations?evaluationSlotId=${slot.id}`}>
-                {slot.project} - {new Date(slot.date).toLocaleString()} -{" "}
-                {slot.status}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  } catch (error) {
-    console.error("Error in EvaluationSlotsPage:", error);
-    return <div>An error occurred. Please try again later.</div>;
-  }
+  return (
+    <div>
+      <BackBtn />
+      <h1>Evaluated Slots</h1>
+      <ul>
+        {evaluationSlots.map((slot) => (
+          <li key={slot.id}>
+            <Link href={`staff/evaluations?evaluationSlotId=${slot.id}`}>
+              {slot.project} - {new Date(slot.date).toLocaleString()} -{" "}
+              {slot.status}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
