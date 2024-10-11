@@ -62,7 +62,7 @@ export default async function EvaluationSlotsPage() {
       <ul>
         {evaluationSlots.map((slot) => (
           <li key={slot.id}>
-            <Link href={`staff/evaluations?evaluationSlotId=${slot.id}`}>
+            <Link href={`/staff/evaluations?evaluationSlotId=${slot.id}`}>
               {slot.project} - {new Date(slot.date).toLocaleString()} -{" "}
               {slot.status}
             </Link>
