@@ -12,7 +12,7 @@ export default function Page() {
           <Link href="/staff/iam">IAM</Link>
         </Button>
         <Button asChild>
-          <Link href="/staff/">Booking management</Link>
+          <Link href="/staff/evaluation-slots">Evaluations</Link>
         </Button>
       </div>
     </main>
