@@ -1,6 +1,6 @@
 import { db } from "@/lib/db/clients";
 import { evaluationSlots } from "@/drizzle/schemas";
-import { and, desc, isNotNull } from "drizzle-orm";
+import { and, desc, gte, isNotNull } from "drizzle-orm";
 
 type DbEvaluationSlot = {
   id: string;
@@ -16,11 +16,16 @@ type EvaluationSlot = {
   status: string;
 };
 
-export async function getEvaluatedSlots(): Promise<DbEvaluationSlot[]> {
+export async function getEvaluatedSlots({
+  from,
+}: {
+  from: string;
+}): Promise<DbEvaluationSlot[]> {
   return await db.query.evaluationSlots.findMany({
     where: and(
       isNotNull(evaluationSlots.isEvaluated),
-      evaluationSlots.isEvaluated
+      evaluationSlots.isEvaluated,
+      gte(evaluationSlots.startDateTime, new Date(from))
     ),
     columns: {
       id: true,
