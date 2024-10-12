@@ -24,7 +24,7 @@ export default async function Page() {
       <LandingBody />
       {isStaff && (
         <Button asChild>
-          <Link href="/staff/iam">Staff IAM</Link>
+          <Link href="/staff">Staff Dashboard</Link>
         </Button>
       )}
       {isTutor && (

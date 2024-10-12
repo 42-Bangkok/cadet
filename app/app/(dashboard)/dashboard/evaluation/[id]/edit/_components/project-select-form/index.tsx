@@ -15,7 +15,6 @@ export const ProjectSelectForm = async (p: IProjectSelectForm) => {
     label: p.project.name,
     value: p.project.name,
   }));
-  console.log(p);
 
   return (
     <SelectForm
