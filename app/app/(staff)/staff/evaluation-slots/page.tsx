@@ -5,6 +5,14 @@ import { evaluationSlots, accounts, evaluatees } from "@/drizzle/schemas";
 import { and, gte, isNotNull } from "drizzle-orm";
 import Link from "next/link";
 import { BackBtn } from "@/components/back-btn";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 type DbEvaluationSlot = {
   id: string;
@@ -51,19 +59,36 @@ export default async function EvaluationSlotsPage() {
   const evaluationSlots = transformEvaluationSlots(dbEvaluationSlots);
 
   return (
-    <div>
+    <div className="container mx-auto py-10">
       <BackBtn />
-      <h1>Evaluated Slots</h1>
-      <ul>
-        {evaluationSlots.map((slot) => (
-          <li key={slot.id}>
-            <Link href={`/staff/evaluations?evaluationSlotId=${slot.id}`}>
-              {slot.project} - {new Date(slot.date).toLocaleString()} -{" "}
-              {slot.status}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <h1 className="text-3xl font-bold mb-6">Evaluated Slots</h1>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Project</TableHead>
+            <TableHead>Date</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead>Action</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {evaluationSlots.map((slot) => (
+            <TableRow key={slot.id}>
+              <TableCell>{slot.project}</TableCell>
+              <TableCell>{new Date(slot.date).toLocaleString()}</TableCell>
+              <TableCell>{slot.status}</TableCell>
+              <TableCell>
+                <Link
+                  href={`/staff/evaluations?evaluationSlotId=${slot.id}`}
+                  className="text-blue-600 hover:underline"
+                >
+                  View Details
+                </Link>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </div>
   );
 }
