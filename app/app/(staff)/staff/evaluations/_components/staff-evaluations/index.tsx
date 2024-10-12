@@ -8,7 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { transformEvaluations } from "../../page";
+import { transformEvaluations } from "../../utils";
 
 export function StaffEvaluations({
   evaluations,
@@ -16,7 +16,7 @@ export function StaffEvaluations({
   evaluations: Awaited<ReturnType<typeof transformEvaluations>>;
 }) {
   return (
-    <div className="container mx-auto py-10">
+    <main className="flex flex-col gap-4">
       <BackBtn />
       <Card>
         <CardHeader>
@@ -47,6 +47,6 @@ export function StaffEvaluations({
           </Table>
         </CardContent>
       </Card>
-    </div>
+    </main>
   );
 }
