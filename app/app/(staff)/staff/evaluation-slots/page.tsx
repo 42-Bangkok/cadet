@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { db } from "@/lib/db/clients";
-import { evaluationSlots, accounts } from "@/drizzle/schemas";
-import { and, isNotNull } from "drizzle-orm";
+import { evaluationSlots, accounts, evaluatees } from "@/drizzle/schemas";
+import { and, gte, isNotNull } from "drizzle-orm";
 import Link from "next/link";
 import { BackBtn } from "@/components/back-btn";
 
@@ -21,23 +21,18 @@ type EvaluationSlot = {
 };
 
 async function getEvaluatedSlots(): Promise<DbEvaluationSlot[]> {
-  try {
-    return await db.query.evaluationSlots.findMany({
-      where: and(
-        isNotNull(evaluationSlots.isEvaluated),
-        evaluationSlots.isEvaluated
-      ),
-      columns: {
-        id: true,
-        startDateTime: true,
-        project: true,
-        isEvaluated: true,
-      },
-    });
-  } catch (error) {
-    console.error("Error fetching evaluation slots:", error);
-    throw new Error("Failed to fetch evaluation slots");
-  }
+  return await db.query.evaluationSlots.findMany({
+    where: and(
+      isNotNull(evaluationSlots.isEvaluated),
+      evaluationSlots.isEvaluated
+    ),
+    columns: {
+      id: true,
+      startDateTime: true,
+      project: true,
+      isEvaluated: true,
+    },
+  });
 }
 
 function transformEvaluationSlots(
