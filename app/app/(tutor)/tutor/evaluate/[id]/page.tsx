@@ -5,7 +5,8 @@ import { EvaluationForm } from "./_components/evaluation-form";
 import { TypographyH1, TypographyLead } from "@/components/typographies";
 import { getEvaluationSlot } from "@/lib/db/evaluations";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const slot = await getEvaluationSlot({ id: params.id });
   if (!slot) {
     return notFound();

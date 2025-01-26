@@ -13,11 +13,12 @@ import { getEvaluatedSlots, transformEvaluationSlots } from "./utils";
 import { redirect } from "next/navigation";
 import { FromInput } from "./_components/from-input";
 
-export default async function Page({
-  searchParams: searchParams,
-}: {
-  searchParams: { from?: string };
-}) {
+export default async function Page(
+  props: {
+    searchParams: Promise<{ from?: string }>;
+  }
+) {
+  const searchParams = await props.searchParams;
   if (!searchParams.from) {
     const prev30Days = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
     const from = prev30Days.toISOString().split("T")[0];
