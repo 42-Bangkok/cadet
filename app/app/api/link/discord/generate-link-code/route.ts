@@ -1,3 +1,5 @@
+import { auth } from "@/auth";
+import { checkServiceToken } from "@/lib/auths/core";
 import { insertLinkCode } from "@/lib/db/links";
 import { nanoid } from "nanoid";
 import { NextResponse } from "next/server";
@@ -9,11 +11,20 @@ const postSchema = z.object({
 
 /**
  * Generate a link code for the user to connect their discord account
+ * 
+curl -X POST \
+http://localhost:3000/api/link/discord/generate-link-code \
+-H "Authorization: Bearer $SERVICE_TOKEN \
+-H "Content-Type: application/json" \
+-d '{"discord_id": 123456789012345678}'
  */
 export async function POST(request: Request) {
   const TIME_LIMIT = 1000 * 60 * 5;
+
+  if (!checkServiceToken(request)) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   const parsedBody = postSchema.safeParse(await request.json());
-  console.log(parsedBody);
   if (!parsedBody.success) {
     return NextResponse.json(
       { error: parsedBody.error.errors },
