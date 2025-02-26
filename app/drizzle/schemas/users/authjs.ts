@@ -94,7 +94,7 @@ export const profiles = pgTable("profile", {
   userId: text("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
-  foreigner: boolean("forigner").default(false).notNull(),
+  foreigner: boolean("foreigner").default(false).notNull(),
 });
 
 export const profilesRelations = relations(profiles, ({ one }) => ({
