@@ -8,7 +8,7 @@ import {
 
 export const linkCodes = pgTable("link_codes", {
   id: serial("id").primaryKey(),
-  discordId: integer("discord_id").notNull(),
+  discordId: varchar("discord_id", { length: 255 }).notNull(),
   linkCode: varchar("link_code", { length: 255 }).notNull().unique(),
   expiresAt: timestamp("expires_at").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),

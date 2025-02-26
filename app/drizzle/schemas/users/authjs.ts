@@ -95,6 +95,7 @@ export const profiles = pgTable("profile", {
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   foreigner: boolean("foreigner").default(false).notNull(),
+  discordId: text("discordId"),
 });
 
 export const profilesRelations = relations(profiles, ({ one }) => ({
