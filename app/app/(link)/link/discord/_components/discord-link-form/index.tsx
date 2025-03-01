@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { handleLinkCodeSubmission } from "./actions";
 import { toast } from "sonner";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
   linkCode: z.string(),
