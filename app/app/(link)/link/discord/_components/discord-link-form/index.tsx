@@ -17,6 +17,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { handleLinkCodeSubmission } from "./actions";
+import { toast } from "sonner";
 
 const FormSchema = z.object({
   linkCode: z.string(),
@@ -28,6 +30,7 @@ export interface IDiscordLinkForm {
 
 export function DiscordLinkForm(p: IDiscordLinkForm) {
   let linkCode = useLinkCodeStore.getState().linkCode;
+  const setLinkCode = useLinkCodeStore.getState().setLinkCode;
 
   linkCode = p.token || linkCode;
 
@@ -36,11 +39,24 @@ export function DiscordLinkForm(p: IDiscordLinkForm) {
     defaultValues: { linkCode },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {}
+  async function onSubmit() {
+    const { data, error } = await handleLinkCodeSubmission({
+      linkCode: form.getValues().linkCode,
+    });
+    console.log(data, error);
+    toast.success(data);
+  }
+  async function onChange() {
+    setLinkCode(form.getValues().linkCode);
+  }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        onChange={form.handleSubmit(onChange)}
+        className="w-2/3 space-y-6"
+      >
         <FormField
           control={form.control}
           name="linkCode"

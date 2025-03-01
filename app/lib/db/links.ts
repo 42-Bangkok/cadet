@@ -23,6 +23,11 @@ export const insertLinkCode = async (p: ICreateLinkCode) => {
     .returning();
 };
 
+interface IAssignDiscordIdWithLinkCode {
+  userId: string;
+  linkCode: string;
+}
+
 /**
  * Assign a Discord ID to a user based on a link code
  * @param userId The ID of the user to update
@@ -30,14 +35,13 @@ export const insertLinkCode = async (p: ICreateLinkCode) => {
  * @returns Object indicating success or failure with optional error message
  */
 export const assignDiscordIdWithLinkCode = async (
-  userId: string,
-  linkCode: string
+  p: IAssignDiscordIdWithLinkCode
 ) => {
   // Find the link code entry
   const linkCodeEntry = await db
     .select()
     .from(linkCodes)
-    .where(eq(linkCodes.linkCode, linkCode))
+    .where(eq(linkCodes.linkCode, p.linkCode))
     .limit(1);
 
   if (linkCodeEntry.length === 0) {
@@ -50,15 +54,26 @@ export const assignDiscordIdWithLinkCode = async (
   if (new Date() > linkData.expiresAt) {
     return { success: false, error: "Link code has expired" };
   }
+  const profile = await db.query.profiles.findFirst({
+    where: eq(profiles.userId, p.userId),
+  });
+  if (!profile) {
+    await db.insert(profiles).values({
+      userId: p.userId,
+      discordId: linkData.discordId,
+    });
+    await db.delete(linkCodes).where(eq(linkCodes.linkCode, p.linkCode));
+    return { success: true };
+  }
 
   // Update the user's Discord ID
   await db
     .update(profiles)
     .set({ discordId: linkData.discordId })
-    .where(eq(users.id, userId));
+    .where(eq(profiles.userId, p.userId));
 
   // Delete the used link code to prevent reuse
-  await db.delete(linkCodes).where(eq(linkCodes.linkCode, linkCode));
+  await db.delete(linkCodes).where(eq(linkCodes.linkCode, p.linkCode));
 
   return { success: true };
 };

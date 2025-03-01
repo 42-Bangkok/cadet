@@ -1,10 +1,4 @@
-import {
-  pgTable,
-  serial,
-  integer,
-  varchar,
-  timestamp,
-} from "drizzle-orm/pg-core";
+import { pgTable, serial, varchar, timestamp } from "drizzle-orm/pg-core";
 
 export const linkCodes = pgTable("link_codes", {
   id: serial("id").primaryKey(),
