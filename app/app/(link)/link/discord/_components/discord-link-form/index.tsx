@@ -19,6 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { handleLinkCodeSubmission } from "./actions";
 import { toast } from "sonner";
+import { useRouter } from "next/router";
 
 const FormSchema = z.object({
   linkCode: z.string(),
@@ -29,6 +30,7 @@ export interface IDiscordLinkForm {
 }
 
 export function DiscordLinkForm(p: IDiscordLinkForm) {
+  const router = useRouter();
   let linkCode = useLinkCodeStore.getState().linkCode;
   const setLinkCode = useLinkCodeStore.getState().setLinkCode;
 
@@ -43,8 +45,13 @@ export function DiscordLinkForm(p: IDiscordLinkForm) {
     const { data, error } = await handleLinkCodeSubmission({
       linkCode: form.getValues().linkCode,
     });
-    console.log(data, error);
-    toast.success(data);
+    if (error) {
+      return toast.error("Sorry, something went wrong.");
+    }
+    toast.success(
+      "Discord account linked successfully! Redirecting to your profile."
+    );
+    router.push("/dashboard/profile");
   }
   async function onChange() {
     setLinkCode(form.getValues().linkCode);
