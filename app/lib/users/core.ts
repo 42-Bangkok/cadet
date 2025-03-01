@@ -12,9 +12,7 @@ export async function getOrCreateProfile({ id }: { id: string }) {
     where: eq(profiles.userId, id),
   });
   if (profile) {
-    // attempt to pull login if not present
     return profile;
   }
-  // also pull login if created
   return (await db.insert(profiles).values({ userId: id }).returning())[0];
 }

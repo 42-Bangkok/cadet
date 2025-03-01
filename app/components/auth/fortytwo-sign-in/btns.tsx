@@ -4,12 +4,17 @@ import { signIn, signOut } from "next-auth/react";
 import { Button } from "../../ui/button";
 import Image from "next/image";
 
-export const SignIn = () => {
+interface ISignIn {
+  callbackUrl?: string;
+}
+
+export const SignIn = (p: ISignIn) => {
+  const callbackUrl = p.callbackUrl || "/";
   return (
     <Button
       onClick={() =>
         signIn("42-school", {
-          callbackUrl: "/",
+          callbackUrl,
         })
       }
     >

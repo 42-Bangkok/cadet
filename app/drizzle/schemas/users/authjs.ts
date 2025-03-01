@@ -94,7 +94,8 @@ export const profiles = pgTable("profile", {
   userId: text("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
-  foreigner: boolean("forigner").default(false).notNull(),
+  foreigner: boolean("foreigner").default(false).notNull(),
+  discordId: text("discordId"),
 });
 
 export const profilesRelations = relations(profiles, ({ one }) => ({
@@ -103,3 +104,6 @@ export const profilesRelations = relations(profiles, ({ one }) => ({
     references: [users.id],
   }),
 }));
+
+export type Profile = typeof profiles.$inferSelect;
+export type NewProfile = typeof profiles.$inferInsert;
