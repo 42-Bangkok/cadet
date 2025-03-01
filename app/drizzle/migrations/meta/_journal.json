@@ -15,6 +15,13 @@
       "when": 1727541141387,
       "tag": "0001_salty_maverick",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1740841542661,
+      "tag": "0002_futuristic_ben_urich",
+      "breakpoints": true
     }
   ]
 }
