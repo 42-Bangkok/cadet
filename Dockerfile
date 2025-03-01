@@ -1,10 +1,10 @@
-FROM node:20-slim as deps
+FROM node:22-slim as deps
 
 WORKDIR /app
 COPY app/package*.json .
-RUN npm install
+RUN npm install --force
 
-FROM node:20-slim as builder
+FROM node:22-slim as builder
 
 # Put NEXT_PUBLIC_* ENV vars here
 ARG NEXT_PUBLIC_URL
@@ -16,7 +16,7 @@ COPY app .
 RUN rm -rf "app/(test)"
 RUN npm run build
 
-FROM node:20-slim as runner
+FROM node:22-slim as runner
 WORKDIR /app
 COPY app/next.config.mjs .
 COPY --from=builder /app/.next ./.next
