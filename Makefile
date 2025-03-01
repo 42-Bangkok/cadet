@@ -7,9 +7,9 @@ bump:
 	cd app && npm i
 
 db-push:
-	cd app && npx drizzle-kit push:pg
+	cd app && npx drizzle-kit push
 db-generate:
-	cd app && npx drizzle-kit generate:pg
+	cd app && npx drizzle-kit generate
 # Tag & trigger github actions to build and push docker image
 release:
 	ver=$(shell date +%Y.%m.%d.%s) &&\
