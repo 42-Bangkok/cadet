@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 const postSchema = z.object({
-  discord_id: z.number(),
+  discord_id: z.string(),
 });
 
 /**
