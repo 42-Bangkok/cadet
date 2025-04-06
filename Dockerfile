@@ -2,7 +2,8 @@ FROM node:22-slim as deps
 
 WORKDIR /app
 COPY app/package*.json .
-RUN npm install --force
+# forcing for v7.10.1
+RUN npm install --force  
 
 FROM node:22-slim as builder
 
