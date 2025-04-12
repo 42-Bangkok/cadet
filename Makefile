@@ -10,6 +10,8 @@ db-push:
 	cd app && npx drizzle-kit push
 db-generate:
 	cd app && npx drizzle-kit generate
+db-migrate:
+	cd app && drizzle-kit migrate
 # Tag & trigger github actions to build and push docker image
 release:
 	ver=$(shell date +%Y.%m.%d.%s) &&\
