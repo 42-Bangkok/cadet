@@ -12,7 +12,7 @@ export const NavBar = ({ className }: INavBar) => {
     <nav
       className={cn(
         "flex justify-between items-center backdrop-blur-sm p-1 sticky top-0 z-1000 shadow-sm border-b",
-        className
+        className,
       )}
     >
       <div className="flex items-center space-x-4 rounded p-1 pt-0 pb-0 shadow ">

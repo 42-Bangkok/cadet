@@ -49,7 +49,7 @@ export function DiscordLinkForm(p: IDiscordLinkForm) {
       return toast.error("Sorry, something went wrong.");
     }
     toast.success(
-      "Discord account linked successfully! Redirecting to your profile."
+      "Discord account linked successfully! Redirecting to your profile.",
     );
     router.push("/dashboard/profile");
   }

@@ -7,13 +7,6 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
-  Form,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -21,10 +14,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Form,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useState } from "react";
 import { toast } from "sonner";
 import { createEvaluationSlots } from "./actions";
-import { useState } from "react";
 
 const FormSchema = z.object({
   dates: z.array(z.date()),
@@ -137,7 +137,7 @@ export const CreateSlotDialog = () => {
                           const [hours] = e.target.value.split(":");
                           date.setHours(Number(hours), 0, 0, 0);
                           form.setValue(
-                            "startTime",
+                            "endTime",
                             date.toTimeString().slice(0, 5)
                           );
                         }}

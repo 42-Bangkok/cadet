@@ -1,10 +1,10 @@
 import { auth } from "@/auth";
-import { accounts, profiles } from "@/drizzle/schemas";
+import { UserProfile } from "@/components/users/user-profile";
+import { accounts } from "@/drizzle/schemas";
 import { FtApi } from "@/lib/42";
 import { db } from "@/lib/db/clients";
-import { and, eq } from "drizzle-orm";
-import { UserProfile } from "./_components/user-profile";
 import { getOrCreateProfile } from "@/lib/users/core";
+import { and, eq } from "drizzle-orm";
 
 export default async function Page() {
   const session = await auth();
@@ -12,7 +12,7 @@ export default async function Page() {
   const account = await db.query.accounts.findFirst({
     where: and(
       eq(accounts.userId, session!.user!.id!),
-      eq(accounts.provider, "42-school")
+      eq(accounts.provider, "42-school"),
     ),
   });
   const api = new FtApi();

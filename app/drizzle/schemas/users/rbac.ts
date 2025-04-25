@@ -43,7 +43,7 @@ export const usersToRoles = pgTable(
   },
   (t) => ({
     pk: primaryKey({ columns: [t.userId, t.roleId] }),
-  })
+  }),
 );
 
 export const usersToRolesRelations = relations(usersToRoles, ({ one }) => ({
@@ -72,5 +72,5 @@ export const roleAssignQueues = pgTable(
   },
   (t) => ({
     unique: primaryKey({ columns: [t.email, t.roleId] }),
-  })
+  }),
 );

@@ -42,7 +42,7 @@ export default async function Page({
   // Transform data for the datatable
   let data: UserRow[] = allProfiles.map((profile) => {
     const account42 = profile.user?.accounts?.find(
-      (acc) => acc.provider === "42-school"
+      (acc) => acc.provider === "42-school",
     );
     return {
       id: profile.id,

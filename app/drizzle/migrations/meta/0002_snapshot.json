@@ -47,12 +47,8 @@
           "name": "evaluatee_userId_user_id_fk",
           "tableFrom": "evaluatee",
           "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -60,12 +56,8 @@
           "name": "evaluatee_evaluationSlotId_evaluationSlot_id_fk",
           "tableFrom": "evaluatee",
           "tableTo": "evaluationSlot",
-          "columnsFrom": [
-            "evaluationSlotId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["evaluationSlotId"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -118,12 +110,8 @@
           "name": "evaluationSlot_evaluatorUserId_user_id_fk",
           "tableFrom": "evaluationSlot",
           "tableTo": "user",
-          "columnsFrom": [
-            "evaluatorUserId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["evaluatorUserId"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -133,10 +121,7 @@
         "evaluationSlot_startDateTime_evaluatorUserId_unique": {
           "name": "evaluationSlot_startDateTime_evaluatorUserId_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "startDateTime",
-            "evaluatorUserId"
-          ]
+          "columns": ["startDateTime", "evaluatorUserId"]
         }
       },
       "policies": {},
@@ -220,12 +205,8 @@
           "name": "account_userId_user_id_fk",
           "tableFrom": "account",
           "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -233,10 +214,7 @@
       "compositePrimaryKeys": {
         "account_provider_providerAccountId_pk": {
           "name": "account_provider_providerAccountId_pk",
-          "columns": [
-            "provider",
-            "providerAccountId"
-          ]
+          "columns": ["provider", "providerAccountId"]
         }
       },
       "uniqueConstraints": {},
@@ -280,12 +258,8 @@
           "name": "profile_userId_user_id_fk",
           "tableFrom": "profile",
           "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -325,12 +299,8 @@
           "name": "session_userId_user_id_fk",
           "tableFrom": "session",
           "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -432,10 +402,7 @@
       "compositePrimaryKeys": {
         "verificationToken_identifier_token_pk": {
           "name": "verificationToken_identifier_token_pk",
-          "columns": [
-            "identifier",
-            "token"
-          ]
+          "columns": ["identifier", "token"]
         }
       },
       "uniqueConstraints": {},
@@ -466,12 +433,8 @@
           "name": "roleAssignQueue_roleId_role_id_fk",
           "tableFrom": "roleAssignQueue",
           "tableTo": "role",
-          "columnsFrom": [
-            "roleId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["roleId"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -479,10 +442,7 @@
       "compositePrimaryKeys": {
         "roleAssignQueue_email_roleId_pk": {
           "name": "roleAssignQueue_email_roleId_pk",
-          "columns": [
-            "email",
-            "roleId"
-          ]
+          "columns": ["email", "roleId"]
         }
       },
       "uniqueConstraints": {},
@@ -521,9 +481,7 @@
         "role_name_unique": {
           "name": "role_name_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "name"
-          ]
+          "columns": ["name"]
         }
       },
       "policies": {},
@@ -553,12 +511,8 @@
           "name": "userToRole_userId_user_id_fk",
           "tableFrom": "userToRole",
           "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -566,12 +520,8 @@
           "name": "userToRole_roleId_role_id_fk",
           "tableFrom": "userToRole",
           "tableTo": "role",
-          "columnsFrom": [
-            "roleId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["roleId"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -579,10 +529,7 @@
       "compositePrimaryKeys": {
         "userToRole_userId_roleId_pk": {
           "name": "userToRole_userId_roleId_pk",
-          "columns": [
-            "userId",
-            "roleId"
-          ]
+          "columns": ["userId", "roleId"]
         }
       },
       "uniqueConstraints": {},
@@ -633,9 +580,7 @@
         "link_codes_link_code_unique": {
           "name": "link_codes_link_code_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "link_code"
-          ]
+          "columns": ["link_code"]
         }
       },
       "policies": {},
