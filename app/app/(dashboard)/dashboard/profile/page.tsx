@@ -3,8 +3,8 @@ import { accounts, profiles } from "@/drizzle/schemas";
 import { FtApi } from "@/lib/42";
 import { db } from "@/lib/db/clients";
 import { and, eq } from "drizzle-orm";
-import { UserProfile } from "../../../../components/users/user-profile";
 import { getOrCreateProfile } from "@/lib/users/core";
+import { UserProfile } from "@/components/users/user-profile";
 
 export default async function Page() {
   const session = await auth();
