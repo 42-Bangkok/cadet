@@ -1,5 +1,5 @@
-import { Eye } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
+import { Eye } from "lucide-react";
 import Link from "next/link";
 
 export interface UserRow {
@@ -11,14 +11,10 @@ export interface UserRow {
 }
 
 export const userColumns: ColumnDef<UserRow>[] = [
-  { accessorKey: "name", header: "Name" },
-  { accessorKey: "email", header: "Email" },
-  { accessorKey: "discordId", header: "Discord ID" },
-  { accessorKey: "account42Id", header: "42-school ID" },
   {
     id: "actions",
-    header: "Actions",
-    cell: function ActionsCell({ row }) {
+    header: "",
+    cell: ({ row }) => {
       const id = row.original.account42Id;
       return (
         <Link
@@ -26,11 +22,19 @@ export const userColumns: ColumnDef<UserRow>[] = [
           target="_blank"
           rel="noopener noreferrer"
           title="View student info"
+          className="flex items-center justify-center"
         >
-          <Eye className="w-5 h-5 hover:text-blue-600 transition-colors" />
+          <Eye className="w-4 h-4 hover:text-blue-600 transition-colors" />
         </Link>
       );
     },
     enableSorting: false,
+    size: 40,
+    minSize: 32,
+    maxSize: 48,
   },
+  { accessorKey: "name", header: "Name" },
+  { accessorKey: "email", header: "Email" },
+  { accessorKey: "discordId", header: "Discord ID" },
+  { accessorKey: "account42Id", header: "42-school ID" },
 ];
