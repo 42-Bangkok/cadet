@@ -157,13 +157,13 @@ export function UserProfile({ user, profile }: UserProfileProps) {
                   <h3 className="text-sm font-medium text-muted-foreground">
                     Foreigner
                   </h3>
-                  <p>{<Badge>{profile.foreigner ? "Yes" : "No"}</Badge>}</p>
+                  {<Badge>{profile.foreigner ? "Yes" : "No"}</Badge>}
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-muted-foreground">
                     DiscordLink
                   </h3>
-                  <p>
+                  <div>
                     {
                       <Badge
                         variant={profile.discordId ? "default" : "destructive"}
@@ -171,7 +171,7 @@ export function UserProfile({ user, profile }: UserProfileProps) {
                         {profile.discordId ? "Linked" : "Not Linked"}
                       </Badge>
                     }
-                  </p>
+                  </div>
                 </div>
               </div>
             </CardContent>
