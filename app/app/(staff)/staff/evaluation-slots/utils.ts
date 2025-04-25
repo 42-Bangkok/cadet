@@ -25,7 +25,7 @@ export async function getEvaluatedSlots({
     where: and(
       isNotNull(evaluationSlots.isEvaluated),
       evaluationSlots.isEvaluated,
-      gte(evaluationSlots.startDateTime, new Date(from))
+      gte(evaluationSlots.startDateTime, new Date(from)),
     ),
     columns: {
       id: true,
@@ -38,7 +38,7 @@ export async function getEvaluatedSlots({
 }
 
 export function transformEvaluationSlots(
-  dbSlots: DbEvaluationSlot[]
+  dbSlots: DbEvaluationSlot[],
 ): EvaluationSlot[] {
   return dbSlots.map((slot) => ({
     id: slot.id,

@@ -44,26 +44,18 @@
         "evaluatee_userId_user_id_fk": {
           "name": "evaluatee_userId_user_id_fk",
           "tableFrom": "evaluatee",
-          "columnsFrom": [
-            "userId"
-          ],
+          "columnsFrom": ["userId"],
           "tableTo": "user",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "no action"
         },
         "evaluatee_evaluationSlotId_evaluationSlot_id_fk": {
           "name": "evaluatee_evaluationSlotId_evaluationSlot_id_fk",
           "tableFrom": "evaluatee",
-          "columnsFrom": [
-            "evaluationSlotId"
-          ],
+          "columnsFrom": ["evaluationSlotId"],
           "tableTo": "evaluationSlot",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "no action"
         }
@@ -115,13 +107,9 @@
         "evaluationSlot_evaluatorUserId_user_id_fk": {
           "name": "evaluationSlot_evaluatorUserId_user_id_fk",
           "tableFrom": "evaluationSlot",
-          "columnsFrom": [
-            "evaluatorUserId"
-          ],
+          "columnsFrom": ["evaluatorUserId"],
           "tableTo": "user",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "set null"
         }
@@ -130,10 +118,7 @@
       "uniqueConstraints": {
         "evaluationSlot_startDateTime_evaluatorUserId_unique": {
           "name": "evaluationSlot_startDateTime_evaluatorUserId_unique",
-          "columns": [
-            "startDateTime",
-            "evaluatorUserId"
-          ],
+          "columns": ["startDateTime", "evaluatorUserId"],
           "nullsNotDistinct": false
         }
       },
@@ -217,13 +202,9 @@
         "account_userId_user_id_fk": {
           "name": "account_userId_user_id_fk",
           "tableFrom": "account",
-          "columnsFrom": [
-            "userId"
-          ],
+          "columnsFrom": ["userId"],
           "tableTo": "user",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -231,10 +212,7 @@
       "compositePrimaryKeys": {
         "account_provider_providerAccountId_pk": {
           "name": "account_provider_providerAccountId_pk",
-          "columns": [
-            "provider",
-            "providerAccountId"
-          ]
+          "columns": ["provider", "providerAccountId"]
         }
       },
       "uniqueConstraints": {},
@@ -271,13 +249,9 @@
         "profile_userId_user_id_fk": {
           "name": "profile_userId_user_id_fk",
           "tableFrom": "profile",
-          "columnsFrom": [
-            "userId"
-          ],
+          "columnsFrom": ["userId"],
           "tableTo": "user",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -316,13 +290,9 @@
         "session_userId_user_id_fk": {
           "name": "session_userId_user_id_fk",
           "tableFrom": "session",
-          "columnsFrom": [
-            "userId"
-          ],
+          "columnsFrom": ["userId"],
           "tableTo": "user",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -424,10 +394,7 @@
       "compositePrimaryKeys": {
         "verificationToken_identifier_token_pk": {
           "name": "verificationToken_identifier_token_pk",
-          "columns": [
-            "identifier",
-            "token"
-          ]
+          "columns": ["identifier", "token"]
         }
       },
       "uniqueConstraints": {},
@@ -457,13 +424,9 @@
         "roleAssignQueue_roleId_role_id_fk": {
           "name": "roleAssignQueue_roleId_role_id_fk",
           "tableFrom": "roleAssignQueue",
-          "columnsFrom": [
-            "roleId"
-          ],
+          "columnsFrom": ["roleId"],
           "tableTo": "role",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -471,10 +434,7 @@
       "compositePrimaryKeys": {
         "roleAssignQueue_email_roleId_pk": {
           "name": "roleAssignQueue_email_roleId_pk",
-          "columns": [
-            "email",
-            "roleId"
-          ]
+          "columns": ["email", "roleId"]
         }
       },
       "uniqueConstraints": {},
@@ -512,9 +472,7 @@
       "uniqueConstraints": {
         "role_name_unique": {
           "name": "role_name_unique",
-          "columns": [
-            "name"
-          ],
+          "columns": ["name"],
           "nullsNotDistinct": false
         }
       },
@@ -544,26 +502,18 @@
         "userToRole_userId_user_id_fk": {
           "name": "userToRole_userId_user_id_fk",
           "tableFrom": "userToRole",
-          "columnsFrom": [
-            "userId"
-          ],
+          "columnsFrom": ["userId"],
           "tableTo": "user",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "no action"
         },
         "userToRole_roleId_role_id_fk": {
           "name": "userToRole_roleId_role_id_fk",
           "tableFrom": "userToRole",
-          "columnsFrom": [
-            "roleId"
-          ],
+          "columnsFrom": ["roleId"],
           "tableTo": "role",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "no action"
         }
@@ -571,10 +521,7 @@
       "compositePrimaryKeys": {
         "userToRole_userId_roleId_pk": {
           "name": "userToRole_userId_roleId_pk",
-          "columns": [
-            "userId",
-            "roleId"
-          ]
+          "columns": ["userId", "roleId"]
         }
       },
       "uniqueConstraints": {},

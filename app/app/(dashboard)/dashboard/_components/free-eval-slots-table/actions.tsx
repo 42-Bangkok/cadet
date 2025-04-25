@@ -20,7 +20,7 @@ interface IBookSlotResponse {
  * - only one unevaluated slot can be booked at a time
  */
 export async function BookSlot(
-  p: IBookSlot
+  p: IBookSlot,
 ): Promise<SAResponse<IBookSlotResponse>> {
   const session = await auth();
   if (!session) {

@@ -35,7 +35,7 @@ interface IAssignDiscordIdWithLinkCode {
  * @returns Object indicating success or failure with optional error message
  */
 export const assignDiscordIdWithLinkCode = async (
-  p: IAssignDiscordIdWithLinkCode
+  p: IAssignDiscordIdWithLinkCode,
 ) => {
   // Find the link code entry
   const linkCodeEntry = await db

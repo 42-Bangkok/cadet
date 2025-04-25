@@ -12,7 +12,7 @@ interface ISubmitProject {
 }
 
 export async function submitProject(
-  p: ISubmitProject
+  p: ISubmitProject,
 ): Promise<SAResponse<boolean>> {
   const session = await auth();
   if (!session) {
@@ -21,7 +21,7 @@ export async function submitProject(
   const slot = await db.query.evaluationSlots.findFirst({
     where: and(
       eq(evaluationSlots.id, p.evaluationSlotId),
-      eq(evaluationSlots.evaluatorUserId, session.user!.id!)
+      eq(evaluationSlots.evaluatorUserId, session.user!.id!),
     ),
   });
   if (!slot) {

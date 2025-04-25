@@ -28,7 +28,7 @@ export async function POST(request: Request) {
   if (!parsedBody.success) {
     return NextResponse.json(
       { error: parsedBody.error.errors },
-      { status: 422 }
+      { status: 422 },
     );
   }
   const linkCode = nanoid();

@@ -55,7 +55,7 @@ export class FtApi {
       "FtApi:access_token",
       token.access_token,
       "EX",
-      token.expires_in - 60
+      token.expires_in - 60,
     );
     return token.access_token;
   }

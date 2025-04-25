@@ -22,7 +22,7 @@ export const evaluationSlots = pgTable(
   },
   (t) => ({
     unq: unique().on(t.startDateTime, t.evaluatorUserId),
-  })
+  }),
 );
 
 export const evaluationSlotsRelations = relations(
@@ -33,7 +33,7 @@ export const evaluationSlotsRelations = relations(
       references: [users.id],
     }),
     evaluatees: many(evaluatees),
-  })
+  }),
 );
 
 export const evaluatees = pgTable("evaluatee", {

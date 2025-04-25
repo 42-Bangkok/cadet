@@ -18,7 +18,7 @@ async function getSlot({
   return await db.query.evaluationSlots.findFirst({
     where: and(
       eq(evaluationSlots.id, id),
-      eq(evaluationSlots.evaluatorUserId, evaluatorUserId)
+      eq(evaluationSlots.evaluatorUserId, evaluatorUserId),
     ),
   });
 }

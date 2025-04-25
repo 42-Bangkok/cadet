@@ -3,7 +3,7 @@ import { evaluationSlots, accounts } from "@/drizzle/schemas";
 import { eq } from "drizzle-orm";
 
 export function transformEvaluations(
-  dbEvaluations: Awaited<ReturnType<typeof getAllEvaluations>>
+  dbEvaluations: Awaited<ReturnType<typeof getAllEvaluations>>,
 ) {
   return dbEvaluations.flatMap((slot) =>
     slot.evaluatees.map((evaluatee) => ({
@@ -13,7 +13,7 @@ export function transformEvaluations(
       project: slot.project || "Unknown",
       date: slot.startDateTime.toISOString(),
       comment: evaluatee.comment,
-    }))
+    })),
   );
 }
 

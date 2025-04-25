@@ -18,6 +18,6 @@ export const useLinkCodeStore = create<LinkCodeStore>()(
     }),
     {
       name: "discord-link-code",
-    }
-  )
+    },
+  ),
 );
