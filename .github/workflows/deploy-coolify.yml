@@ -1,0 +1,25 @@
+name: Deploy to Coolify
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Coolify Deploy API
+        env:
+          COOLIFY_TOKEN: ${{ secrets.COOLIFY_TOKEN }}
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
+            -H "Authorization: Bearer $COOLIFY_TOKEN" \
+            -H "Content-Type: application/json" \
+            "https://coolify.42bangkok.com/api/v1/deploy?uuid=k0c0wkwwskgk84gw80o4sc04&force=false")
+          echo "HTTP status code: $response"
+          if [[ "$response" != 2* ]]; then
+            echo "Deployment failed with status code $response"
+            exit 1
+          fi

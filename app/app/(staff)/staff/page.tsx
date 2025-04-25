@@ -16,7 +16,7 @@ export default function Page() {
           <Link href="/staff/evaluation-slots">Evaluations</Link>
         </Button>
         <Button asChild>
-          <Link href="/staff/users">Discord Linked Users</Link>
+          <Link href="/staff/users">Users</Link>
         </Button>
       </div>
     </main>
