@@ -1,10 +1,10 @@
-import { UserProfile } from "../../../../../(dashboard)/dashboard/profile/_components/user-profile";
 import { getOrCreateProfile } from "@/lib/users/core";
 import { db } from "@/lib/db/clients";
 import { accounts } from "@/drizzle/schemas";
 import { and, eq } from "drizzle-orm";
 import { FtApi } from "@/lib/42";
 import { notFound } from "next/navigation";
+import { UserProfile } from "../_components/user-profile";
 
 export default async function Page({ params }: { params: { id: string } }) {
   // id is the 42-school id
