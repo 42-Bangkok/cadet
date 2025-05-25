@@ -1,16 +1,16 @@
 import { autoTimestamp } from "@/drizzle/schemas/commons";
 import { relations } from "drizzle-orm";
 import {
-  timestamp,
-  pgTable,
-  text,
-  primaryKey,
-  integer,
   boolean,
+  integer,
+  pgTable,
+  primaryKey,
+  text,
+  timestamp,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "next-auth/adapters";
-import { usersToRoles } from "./rbac";
 import { evaluationSlots } from "../evaluations";
+import { usersToRoles } from "./rbac";
 
 export const users = pgTable("user", {
   // fields from next-auth
@@ -26,9 +26,13 @@ export const users = pgTable("user", {
   ...autoTimestamp,
 });
 
-export const usersRelations = relations(users, ({ many }) => ({
+export const usersRelations = relations(users, ({ one, many }) => ({
   usersToRoles: many(usersToRoles),
   accounts: many(accounts),
+  profile: one(profiles, {
+    fields: [users.id],
+    references: [profiles.userId],
+  }),
 }));
 
 export const accounts = pgTable(
@@ -52,7 +56,7 @@ export const accounts = pgTable(
     compoundKey: primaryKey({
       columns: [account.provider, account.providerAccountId],
     }),
-  }),
+  })
 );
 
 export const accountsRelations = relations(accounts, ({ one, many }) => ({
@@ -84,7 +88,7 @@ export const verificationTokens = pgTable(
   },
   (vt) => ({
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
-  }),
+  })
 );
 
 export const profiles = pgTable("profile", {
